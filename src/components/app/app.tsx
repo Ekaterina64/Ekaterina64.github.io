@@ -1,7 +1,10 @@
+import AppHeader from '../app-header/app-header'
+
 function App() {
   return (
-    <div>
-    </div>
+    <>
+      <AppHeader/>
+    </>
   );
 }
 

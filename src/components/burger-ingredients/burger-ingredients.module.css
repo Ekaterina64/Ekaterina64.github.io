@@ -1,0 +1,12 @@
+.section {
+	width: 600px;
+	height: 912px;
+	overflow: hidden;
+}
+
+.ingredientsContainer {
+	max-height: 756px;
+	box-sizing: border-box;
+	scroll-behavior: smooth;
+	overflow-y: scroll;
+}

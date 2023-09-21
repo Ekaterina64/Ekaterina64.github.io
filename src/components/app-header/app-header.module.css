@@ -1,19 +1,15 @@
 .header {
 	display: flex;
-	max-width: 1920px;
-	max-height: 88px;
-	padding: 16px 320px;
-	margin: 40px 40px 0;
+	padding: 16px 370px;
 	align-items: center;
 	flex-shrink: 0;
 
-	border: 2px solid var(--interface-accent, #4C4CFF);
 	background: var(--interface-modal-bg, #1C1C21);
 }
 
 .logo {
   position: absolute;
-  left: 42%;
+  left: calc(50% - 144px);
 }
 
 .link_right {

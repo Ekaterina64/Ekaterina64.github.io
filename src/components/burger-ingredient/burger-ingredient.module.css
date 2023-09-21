@@ -1,0 +1,16 @@
+.listItem {
+	width: 272px;
+	height: 208px;
+}
+
+.price {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.ingredientName {
+	height: 48px;
+	align-self: stretch;
+	text-align: center;
+}

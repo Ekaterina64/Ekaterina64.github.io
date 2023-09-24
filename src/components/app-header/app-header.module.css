@@ -1,0 +1,28 @@
+.header {
+	display: flex;
+	padding: 16px 370px;
+	align-items: center;
+	background: var(--interface-modal-bg, #1C1C21);
+}
+
+.logo {
+  position: absolute;
+  left: calc(50% - 150px);
+}
+
+.link_right {
+	margin-left: auto;
+}
+
+.link {
+	display: flex;
+	padding: 16px 20px;
+	align-items: center;
+	border-radius: 40px;
+	text-decoration: none;
+	background: var(--interface-modal-bg, #1C1C21);
+}
+
+.link_active {
+	color: white;
+}

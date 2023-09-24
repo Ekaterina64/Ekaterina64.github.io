@@ -5,8 +5,38 @@
 }
 
 .ingredientsContainer {
-	max-height: 756px;
+	max-height: 716px;
 	box-sizing: border-box;
 	scroll-behavior: smooth;
 	overflow-y: scroll;
+}
+
+.ingredientsList {
+	padding-left: 16px;
+	margin: 0;
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	list-style-type: none;
+	flex-wrap: wrap;
+	column-gap: 24px;
+	row-gap: 32px;
+}
+
+.item {
+	width: 272px;
+	height: 208px;
+	position: relative;
+}
+
+.price {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.ingredientName {
+	height: 48px;
+	align-self: stretch;
+	text-align: center;
 }

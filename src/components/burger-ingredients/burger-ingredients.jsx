@@ -1,37 +1,32 @@
 import classNames from "classnames"
-import ingredientsdata from "../../utils/data.js"
-import IngredientContainer from '../ingredient-container/ingredient-container'
-import TabContainer from '../tab-container/tab-container'
+import ingredientsData from "../../utils/data.js"
+import { Types } from "../../utils/ingredient-types.js"
 import styles from "./burger-ingredients.module.css"
+import IngredientList from "./ingredient-list/ingredient-list.jsx"
+import TabContainer from "./tab-container/tab-container.jsx"
 
 const BurgerIngredients = () => {
 
-	const Type = {
-		MAIN: "main",
-		SOUSE: "sauce",
-		BUN: "bun"
-	};
-
-	const dataBun = ingredientsdata.filter( (ingredient) => {return ingredient.type === Type.BUN});
-	const dataMain = ingredientsdata.filter( (ingredient) => {return ingredient.type === Type.MAIN});
-	const dataSouse = ingredientsdata.filter( (ingredient) => {return ingredient.type === Type.SOUSE});
+	const dataBun = ingredientsData.filter( (ingredient) => {return ingredient.type === Types.BUN});
+	const dataMain = ingredientsData.filter( (ingredient) => {return ingredient.type === Types.MAIN});
+	const dataSouse = ingredientsData.filter( (ingredient) => {return ingredient.type === Types.SOUSE});
 
   return (
-    <section className={styles.section}>
+    <div className={styles.section}>
       <h1 className={"text text_type_main-large mb-5 mt-10"}>
         Соберите бургер
       </h1>
-      <TabContainer/>
+      <TabContainer types={Types}/>
 			<div className={classNames(styles.ingredientsContainer, "custom-scroll")}>
-				<h2 className="text text_type_main-medium mb-6">Булки</h2>
-				<IngredientContainer ingredients={dataBun} type={Type.BUN}/>
-				<h2 className="text text_type_main-medium mb-6 mt-10">Соусы</h2>
-				<IngredientContainer ingredients={dataSouse} type={Type.SOUSE}/>
-				<h2 className="text text_type_main-medium mb-6 mt-10">Начинки</h2>
-				<IngredientContainer ingredients={dataMain} type={Type.MAIN}/>
+				<h2 id={Types.BUN} className="text text_type_main-medium mb-6">Булки</h2>
+				<IngredientList ingredients={dataBun}/>
+				<h2 id={Types.SOUSE} className="text text_type_main-medium mb-6 mt-10">Соусы</h2>
+				<IngredientList ingredients={dataSouse}/>
+				<h2 id={Types.MAIN} className="text text_type_main-medium mb-6 mt-10">Начинки</h2>
+				<IngredientList ingredients={dataMain}/>
 			</div>
-    </section>
-  )
-}
+    </div>
+  );
+};
 
 export default BurgerIngredients;

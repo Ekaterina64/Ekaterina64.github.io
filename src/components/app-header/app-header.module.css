@@ -2,14 +2,12 @@
 	display: flex;
 	padding: 16px 370px;
 	align-items: center;
-	flex-shrink: 0;
-
 	background: var(--interface-modal-bg, #1C1C21);
 }
 
 .logo {
   position: absolute;
-  left: calc(50% - 144px);
+  left: calc(50% - 150px);
 }
 
 .link_right {

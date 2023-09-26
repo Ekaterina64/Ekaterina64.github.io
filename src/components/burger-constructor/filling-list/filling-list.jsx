@@ -1,10 +1,10 @@
-import cn from "classnames"
+import classNames from "classnames"
 import styles from "../burger-constructor.module.css"
 import FillingItem from "./filling-item/filling_item"
 
 const FillingList = () => {
 	return (
-		<ul className={cn(styles.list, "custom-scroll mt-4 mb-4 pl-4 pr-1")}>
+		<ul className={classNames(styles.list, "custom-scroll mt-4 mb-4 pl-4 pr-1")}>
 			<FillingItem
 				name={"Говяжий метеорит (отбивная)"}
 				price={20}

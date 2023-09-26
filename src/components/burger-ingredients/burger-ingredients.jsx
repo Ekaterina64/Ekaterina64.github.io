@@ -1,16 +1,13 @@
 import classNames from "classnames"
-import ingredientsData from "../../utils/data.js"
+import { useFilter } from "../../hooks/use-filter.js"
 import { Types } from "../../utils/ingredient-types.js"
 import styles from "./burger-ingredients.module.css"
 import IngredientList from "./ingredient-list/ingredient-list.jsx"
 import TabContainer from "./tab-container/tab-container.jsx"
 
-const BurgerIngredients = () => {
-
-	const dataBun = ingredientsData.filter( (ingredient) => {return ingredient.type === Types.BUN});
-	const dataMain = ingredientsData.filter( (ingredient) => {return ingredient.type === Types.MAIN});
-	const dataSouse = ingredientsData.filter( (ingredient) => {return ingredient.type === Types.SOUSE});
-
+const BurgerIngredients = ({data}) => {
+	const [ dataBun, dataMain, dataSouse ] = useFilter(data);
+	
   return (
     <div className={styles.section}>
       <h1 className={"text text_type_main-large mb-5 mt-10"}>

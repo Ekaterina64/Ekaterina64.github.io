@@ -1,0 +1,36 @@
+.ingredient_name {
+  align-self: center;
+  text-align: center;
+  max-width: 520px;
+}
+
+.image {
+  width: 480px;
+  height: 240px;
+  
+  align-self: center;
+  display: block;
+}
+
+.energyValues {
+  width: 100%;
+  max-width: 520px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  align-self: center;
+  justify-content: space-between;
+}
+
+.energyValue_calories {
+  width: 127px;
+}
+
+.energyValue {
+  width: 112px;
+}
+
+.energy {
+  text-align: center;
+}

@@ -1,12 +1,12 @@
 import classNames from "classnames"
 import PropTypes from "prop-types"
-import styles from "../../modal/modal.module.css"
+import styles from "../ingredient-details.module.css"
 
 const EnergyValues = (props) => {
   const energyTextStyle = "text text_type_main-default text_color_inactive";
   return (
     <ul className={styles.energyValues}>
-      <li className={classNames(styles.energyValue, styles.energyValue_calories)}>
+      <li className={styles.energyValue_calories}>
         <p className={classNames(energyTextStyle, "mb-2", styles.energy )}>
           Калории, ккал
         </p>

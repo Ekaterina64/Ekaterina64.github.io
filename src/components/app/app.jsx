@@ -5,6 +5,7 @@ import BurgerConstructor from '../burger-constructor/burger-constructor'
 import BurgerIngredients from '../burger-ingredients/burger-ingredients'
 import IngredientDetails from '../ingredient-details/ingredient-details'
 import Modal from '../modal/modal'
+import OrderDetails from '../order-details/order-details'
 import styles from "./app.module.css"
 
 const API_INGREDIENTS_URL = "https://norma.nomoreparties.space/api/ingredients";
@@ -13,16 +14,25 @@ const App = () => {
 
   const [data, setData] = useState([]);
 
-  const [isModalDetailsOpened, setIsModalDetailsOpened] = useState(false);
+  const [isModalIngredientsDetailsOpened, setIsModalIngredientsDetailsOpened] = useState(false);
+  const [isModalOrderDetailsOpened, setIsModalOrderDetailsOpened] = useState(false);
   const [selectedIngredient, setSelectedIngredient] = useState(null);
 
-  const onModalClose = () => {
-    setIsModalDetailsOpened(false);
+  const onModalIngredientDetailsClose = () => {
+    setIsModalIngredientsDetailsOpened(false);
+  };
+
+  const onModalOrderDetailsClose = () => {
+    setIsModalOrderDetailsOpened(false);
   };
 
   function handleClick(ingredient) {
-    setIsModalDetailsOpened(true);
+    setIsModalIngredientsDetailsOpened(true);
     setSelectedIngredient(ingredient);
+  };
+
+  function handleButtonClick() {
+    setIsModalOrderDetailsOpened(true);
   };
 
   function getData() {
@@ -46,12 +56,23 @@ const App = () => {
           <AppHeader/>
           <div className={classNames(styles.burgerContainer, "pl-5 pr-5")}>
             <BurgerIngredients data={data} onClick={handleClick}/>
-            <BurgerConstructor/>
+            <BurgerConstructor onClick={handleButtonClick}/>
           </div>
-          <Modal title='Детали ингредиента' isOpened={isModalDetailsOpened} onClose={onModalClose}>
+          <Modal
+            title='Детали ингредиента'
+            isOpened={isModalIngredientsDetailsOpened}
+            onClose={onModalIngredientDetailsClose}
+          >
             {selectedIngredient && (
-              <IngredientDetails ingredient={selectedIngredient} />
+              <IngredientDetails ingredient={selectedIngredient}/>
             )}
+          </Modal>
+          <Modal
+            title=''
+            isOpened={isModalOrderDetailsOpened}
+            onClose={onModalOrderDetailsClose}
+          >
+            <OrderDetails/>
           </Modal>
         </>
       }

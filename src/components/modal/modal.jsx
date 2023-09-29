@@ -27,7 +27,7 @@ const Modal = (props) => {
       <div className={classNames(styles.modal, { [styles.modal_open]: props.isOpened })}>
         <ModalOverlay onClose={props.onClose} />
         <div className={styles.content}>
-          <h1 className="text text_type_main-large pt-3 pb-3">
+          <h1 className={classNames("text text_type_main-large pt-3 pb-3", styles.title)}>
             {props.title}
           </h1>
           <button className={styles.closeButton} onClick={props.onClose}>

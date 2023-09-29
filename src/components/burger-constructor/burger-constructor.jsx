@@ -1,11 +1,12 @@
 import classNames from "classnames"
+import PropTypes from "prop-types"
 import { useState } from "react"
 import Bun from "./bun/bun"
 import styles from "./burger-constructor.module.css"
 import FillingList from "./filling-list/filling-list"
 import PlaceOrder from "./place-order/place-order"
 
-const BurgerConstructor = () => {
+const BurgerConstructor = ({onClick}) => {
 	//Test data
 	const [bun, setBun] = useState({
 		id:"60666c42cc7b410027a1a9b1",
@@ -61,9 +62,13 @@ const BurgerConstructor = () => {
 					/>
 				}
 			</div>
-			<PlaceOrder cost={cost}/>
+			<PlaceOrder cost={cost} onClick={onClick}/>
 		</div>
 	);
+};
+
+BurgerConstructor.propTypes = {
+	onClick: PropTypes.func.isRequired
 };
 
 export default BurgerConstructor;

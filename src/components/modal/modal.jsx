@@ -24,7 +24,7 @@ const Modal = (props) => {
 
   return ReactDOM.createPortal(
     <>
-      <div className={classNames(styles.modal, { [styles.modal_open]: props.isOpened })}>
+      <div className={styles.modal}>
         <ModalOverlay onClose={props.onClose} />
         <div className={styles.content}>
           <h1 className={classNames("text text_type_main-large pt-3 pb-3", styles.title)}>
@@ -43,7 +43,6 @@ const Modal = (props) => {
 
 Modal.propTypes = {
 	onClose: PropTypes.func.isRequired,
-  isOpened: PropTypes.bool.isRequired,
   title: PropTypes.string.isRequired
 };
 

@@ -2,6 +2,7 @@ import classNames from "classnames"
 import PropTypes from "prop-types"
 import { useFilter } from "../../hooks/use-filter.js"
 import { Types } from "../../utils/ingredient-types.js"
+import { IngredientPropType } from "../../utils/prop-types.js"
 import styles from "./burger-ingredients.module.css"
 import IngredientList from "./ingredient-list/ingredient-list.jsx"
 import TabContainer from "./tab-container/tab-container.jsx"
@@ -28,7 +29,8 @@ const BurgerIngredients = ({data, onClick}) => {
 };
 
 BurgerIngredients.propTypes = {
-	data: PropTypes.array.isRequired,
+	data: PropTypes.arrayOf(PropTypes.shape(IngredientPropType)).isRequired,
 	onClick: PropTypes.func.isRequired
 };
+
 export default BurgerIngredients;

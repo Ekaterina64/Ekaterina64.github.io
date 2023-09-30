@@ -1,5 +1,6 @@
 import classNames from "classnames"
 import PropTypes from "prop-types"
+import { IngredientPropType } from "../../../utils/prop-types.js"
 import styles from "../burger-constructor.module.css"
 import FillingItem from "./filling-item/filling_item"
 
@@ -21,7 +22,7 @@ const FillingList = ({fillingList}) => {
 };
 
 FillingList.propTypes = {
-	fillingList: PropTypes.array.isRequired
+	fillingList: PropTypes.arrayOf(PropTypes.shape(IngredientPropType)).isRequired,
 };
 
 export default FillingList;

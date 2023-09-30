@@ -2,6 +2,7 @@ import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-c
 import classNames from "classnames"
 import PropTypes from "prop-types"
 import { useCallback } from "react"
+import { IngredientPropType } from "../../../../utils/prop-types.js"
 import styles from "../../burger-ingredients.module.css"
 
 const BurgerIngredient = ({item, count, onClick}) => {
@@ -28,7 +29,7 @@ const BurgerIngredient = ({item, count, onClick}) => {
 };
 
 BurgerIngredient.propTypes = {
-	item: PropTypes.object.isRequired,
+	item: PropTypes.shape(IngredientPropType).isRequired,
 	count: PropTypes.number.isRequired,
 	onClick: PropTypes.func.isRequired
 };

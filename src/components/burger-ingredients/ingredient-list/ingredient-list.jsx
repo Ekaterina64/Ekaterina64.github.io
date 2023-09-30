@@ -1,4 +1,5 @@
 import PropTypes from "prop-types"
+import { IngredientPropType } from "../../../utils/prop-types.js"
 import styles from "../burger-ingredients.module.css"
 import BurgerIngredient from "./burger-ingredient/burger-ingredient"
 
@@ -19,7 +20,8 @@ const IngredientList = ({ingredients, onClick}) => {
 };
 
 IngredientList.propTypes = {
-	ingredients: PropTypes.array.isRequired,
+	ingredients: PropTypes.arrayOf(PropTypes.shape(IngredientPropType)).isRequired,
 	onClick: PropTypes.func.isRequired
 };
+
 export default IngredientList;

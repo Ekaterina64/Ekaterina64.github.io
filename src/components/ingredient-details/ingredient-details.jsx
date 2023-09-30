@@ -1,5 +1,5 @@
 import classNames from "classnames"
-import PropTypes from "prop-types"
+import { IngredientPropType } from "../../utils/prop-types.js"
 import EnergyValues from './energy-values/energy-values'
 import styles from "./ingredient-details.module.css"
 
@@ -20,7 +20,7 @@ const IngredientDetails = ({ ingredient }) => {
 };
 
 IngredientDetails.propTypes = {
-	ingredient: PropTypes.object.isRequired
+	ingredient: IngredientPropType.isRequired,
 };
 
 export default IngredientDetails;

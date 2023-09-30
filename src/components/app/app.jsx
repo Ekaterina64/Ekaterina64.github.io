@@ -58,22 +58,24 @@ const App = () => {
             <BurgerIngredients data={data} onClick={handleClick}/>
             <BurgerConstructor onClick={handleButtonClick}/>
           </div>
-          <Modal
-            title='Детали ингредиента'
-            isOpened={isModalIngredientsDetailsOpened}
-            onClose={onModalIngredientDetailsClose}
-          >
-            {selectedIngredient && (
-              <IngredientDetails ingredient={selectedIngredient}/>
-            )}
-          </Modal>
-          <Modal
-            title=''
-            isOpened={isModalOrderDetailsOpened}
-            onClose={onModalOrderDetailsClose}
-          >
-            <OrderDetails/>
-          </Modal>
+          { isModalIngredientsDetailsOpened &&
+            <Modal
+              title='Детали ингредиента'
+              onClose={onModalIngredientDetailsClose}
+            >
+              {selectedIngredient && (
+                <IngredientDetails ingredient={selectedIngredient}/>
+              )}
+            </Modal>
+          }
+          { isModalOrderDetailsOpened &&
+            <Modal
+              title=''
+              onClose={onModalOrderDetailsClose}
+            >
+              <OrderDetails/>
+            </Modal>
+          }
         </>
       }
     </>

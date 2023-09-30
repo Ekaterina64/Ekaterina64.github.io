@@ -1,5 +1,6 @@
 import classNames from "classnames"
 import { useEffect, useState } from "react"
+import { getIngredients } from '../../utils/burger-api.js'
 import AppHeader from "../app-header/app-header"
 import BurgerConstructor from '../burger-constructor/burger-constructor'
 import BurgerIngredients from '../burger-ingredients/burger-ingredients'
@@ -8,12 +9,12 @@ import Modal from '../modal/modal'
 import OrderDetails from '../order-details/order-details'
 import styles from "./app.module.css"
 
-const API_INGREDIENTS_URL = "https://norma.nomoreparties.space/api/ingredients";
+const NORMA_API = "https://norma.nomoreparties.space/api";
 
 const App = () => {
 
-  const [data, setData] = useState([]);
-
+  const [state, setState] = useState({hasError: false, data: []});
+  
   const [isModalIngredientsDetailsOpened, setIsModalIngredientsDetailsOpened] = useState(false);
   const [isModalOrderDetailsOpened, setIsModalOrderDetailsOpened] = useState(false);
   const [selectedIngredient, setSelectedIngredient] = useState(null);
@@ -36,10 +37,13 @@ const App = () => {
   };
 
   function getData() {
-    fetch(API_INGREDIENTS_URL)
-      .then(res => res.ok ? res.json() : Promise.reject(res))
-      .then(({data}) => setData(data))
+    getIngredients(NORMA_API)
+      .then(({data}) => setState({hasError: false, data}))
       .catch((e) => {
+        setState({
+          ...state,
+          hasError: true
+        });
         console.log(e.message);
         console.log(e.response);      
       });
@@ -48,14 +52,18 @@ const App = () => {
   useEffect(() => {
     getData();
   }, []);
+
+  if(state.hasError) {
+    return <p>Что то пошло не так... Попробуйте перезагрузить</p>
+  }
   
   return (
     <>
-      { data &&
+      { state.data &&
         <>
           <AppHeader/>
           <div className={classNames(styles.burgerContainer, "pl-5 pr-5")}>
-            <BurgerIngredients data={data} onClick={handleClick}/>
+            <BurgerIngredients data={state.data} onClick={handleClick}/>
             <BurgerConstructor onClick={handleButtonClick}/>
           </div>
           { isModalIngredientsDetailsOpened &&

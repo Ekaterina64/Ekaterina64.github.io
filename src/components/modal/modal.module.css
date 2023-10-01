@@ -1,0 +1,44 @@
+.modal {
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+
+  display: flex;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+}
+
+.content {
+  border-radius: 40px;
+  padding: 40px 40px 60px;
+  max-width: 720px;
+
+  position: relative;
+  background: var(--background);
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  height: 38px;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  padding: 0;
+  position: absolute;
+
+  top: 60px;
+  right: 40px;
+  cursor: pointer;
+  transition: 200ms;
+}
+
+.closeButton:hover {
+  opacity: 0.6;
+}

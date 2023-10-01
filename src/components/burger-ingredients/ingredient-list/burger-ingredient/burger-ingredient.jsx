@@ -1,29 +1,37 @@
 import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components"
 import classNames from "classnames"
 import PropTypes from "prop-types"
+import { useCallback } from "react"
+import { IngredientPropType } from "../../../../utils/prop-types.js"
 import styles from "../../burger-ingredients.module.css"
 
-const BurgerIngredient = ({name, price, image, count}) => {
+const BurgerIngredient = ({item, count, onClick}) => {
+
+	const handleClick = useCallback(() => {
+		onClick(item);
+	}, [item, onClick] );
+	
 	return (
 		<li className={styles.item}>
-			<div>
+			<div
+				onClick={handleClick}
+			>
 				{count > 0 && <Counter count={count} size='default'/>}
-				<img className='ml-4 mr-4' src={image} alt="Ингредиент"/>
+				<img className='ml-4 mr-4' src={item.image} alt="Ингредиент"/>
 				<div className={classNames('mt-2 mb-2', styles.price)}>
-					<p className="text text_type_digits-default mr-2">{price}</p>
+					<p className="text text_type_digits-default mr-2">{item.price}</p>
 					<CurrencyIcon/>
 				</div>
-				<p className={classNames("text text_type_main-default", styles.ingredientName)}>{name}</p>
+				<p className={classNames("text text_type_main-default", styles.ingredientName)}>{item.name}</p>
 			</div>
 		</li>
 	);
 };
 
 BurgerIngredient.propTypes = {
-	name: PropTypes.string.isRequired,
-	price: PropTypes.number.isRequired,
-	image: PropTypes.string.isRequired,
-	count: PropTypes.number.isRequired
+	item: PropTypes.shape(IngredientPropType).isRequired,
+	count: PropTypes.number.isRequired,
+	onClick: PropTypes.func.isRequired
 };
 
 export default BurgerIngredient;

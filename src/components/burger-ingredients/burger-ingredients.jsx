@@ -1,16 +1,15 @@
 import classNames from "classnames"
-import ingredientsData from "../../utils/data.js"
+import PropTypes from "prop-types"
+import { useFilter } from "../../hooks/use-filter.js"
 import { Types } from "../../utils/ingredient-types.js"
+import { IngredientPropType } from "../../utils/prop-types.js"
 import styles from "./burger-ingredients.module.css"
 import IngredientList from "./ingredient-list/ingredient-list.jsx"
 import TabContainer from "./tab-container/tab-container.jsx"
 
-const BurgerIngredients = () => {
-
-	const dataBun = ingredientsData.filter( (ingredient) => {return ingredient.type === Types.BUN});
-	const dataMain = ingredientsData.filter( (ingredient) => {return ingredient.type === Types.MAIN});
-	const dataSouse = ingredientsData.filter( (ingredient) => {return ingredient.type === Types.SOUSE});
-
+const BurgerIngredients = ({data, onClick}) => {
+	const [ dataBun, dataMain, dataSouse ] = useFilter(data);
+	
   return (
     <div className={styles.section}>
       <h1 className={"text text_type_main-large mb-5 mt-10"}>
@@ -19,14 +18,19 @@ const BurgerIngredients = () => {
       <TabContainer types={Types}/>
 			<div className={classNames(styles.ingredientsContainer, "custom-scroll")}>
 				<h2 id={Types.BUN} className="text text_type_main-medium mb-6">Булки</h2>
-				<IngredientList ingredients={dataBun}/>
+				<IngredientList ingredients={dataBun} onClick={onClick}/>
 				<h2 id={Types.SOUSE} className="text text_type_main-medium mb-6 mt-10">Соусы</h2>
-				<IngredientList ingredients={dataSouse}/>
+				<IngredientList ingredients={dataSouse} onClick={onClick}/>
 				<h2 id={Types.MAIN} className="text text_type_main-medium mb-6 mt-10">Начинки</h2>
-				<IngredientList ingredients={dataMain}/>
+				<IngredientList ingredients={dataMain} onClick={onClick}/>
 			</div>
     </div>
   );
+};
+
+BurgerIngredients.propTypes = {
+	data: PropTypes.arrayOf(PropTypes.shape(IngredientPropType)).isRequired,
+	onClick: PropTypes.func.isRequired
 };
 
 export default BurgerIngredients;

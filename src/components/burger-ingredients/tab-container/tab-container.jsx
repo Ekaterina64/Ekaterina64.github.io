@@ -1,7 +1,8 @@
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components"
+import classNames from "classnames"
 import PropTypes from "prop-types"
 import { useState } from "react"
-import { Types } from '../../../utils/ingredient-types'
+import styles from "../burger-ingredients.module.css"
 
 const TabContainer = ({types}) => {
 
@@ -14,7 +15,7 @@ const TabContainer = ({types}) => {
 	};
 
 	return (
-		<div className="mb-10" style={{ display: "flex" }}>
+		<div className={classNames(styles.tabContainer, "mb-10")}>
 			<Tab
 				value={types.BUN}
 				active={current === types.BUN}
@@ -41,7 +42,7 @@ const TabContainer = ({types}) => {
 };
 
 TabContainer.propTypes = {
-	types: PropTypes.instanceOf(Types).isRequired
+	types: PropTypes.objectOf(PropTypes.string)
 };
 
 export default TabContainer;

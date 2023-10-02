@@ -3,7 +3,7 @@ import {
   DragIcon
 } from "@ya.praktikum/react-developer-burger-ui-components"
 import PropTypes from "prop-types"
-import styles from "../../burger-constructor.module.css"
+import styles from "../../../burger-constructor.module.css"
 
 const FillingItem = (props) => {
   return (
@@ -16,6 +16,7 @@ const FillingItem = (props) => {
           text={props.name}
           price={props.price}
           thumbnail={props.image}
+          extraClass={styles.element}
         />
       </div>
     </li>

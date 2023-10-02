@@ -1,8 +1,8 @@
 import classNames from "classnames"
 import PropTypes from "prop-types"
-import { IngredientPropType } from "../../../utils/prop-types.js"
-import styles from "../burger-constructor.module.css"
-import FillingItem from "./filling-item/filling_item"
+import { IngredientPropType } from "../../../../utils/prop-types.js"
+import styles from "../../burger-constructor.module.css"
+import FillingItem from "./filling-item/filling_item.jsx"
 
 const FillingList = ({fillingList}) => {
 	return (

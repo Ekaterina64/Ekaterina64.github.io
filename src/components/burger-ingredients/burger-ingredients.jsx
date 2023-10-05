@@ -1,6 +1,7 @@
 import classNames from "classnames"
 import { useContext, useState } from 'react'
 import { useFilter } from "../../hooks/use-filter.js"
+import { useModal } from "../../hooks/use-modal.js"
 import { IngredientsDataContext } from '../../services/app-context.js'
 import { Types } from "../../utils/ingredient-types.js"
 import IngredientDetails from '../ingredient-details/ingredient-details.jsx'
@@ -13,16 +14,12 @@ const BurgerIngredients = () => {
 	const data = useContext(IngredientsDataContext);
 	const [ dataBun, dataMain, dataSouse ] = useFilter(data);
 
-	const [isModalIngredientsDetailsOpened, setIsModalIngredientsDetailsOpened] = useState(false);
+	const [isModalOpen, openModal, closeModal] = useModal();
 	const [selectedIngredient, setSelectedIngredient] = useState(null);
 
-	const onModalIngredientDetailsClose = () => {
-    setIsModalIngredientsDetailsOpened(false);
-  };
-
 	function handleClick(ingredient) {
-    setIsModalIngredientsDetailsOpened(true);
-    setSelectedIngredient(ingredient);
+		setSelectedIngredient(ingredient);
+    openModal();
   };
 	
   return (
@@ -39,10 +36,10 @@ const BurgerIngredients = () => {
 				<h2 id={Types.MAIN} className="text text_type_main-medium mb-6 mt-10">Начинки</h2>
 				<IngredientList ingredients={dataMain} onClick={handleClick}/>
 			</div>
-			{ isModalIngredientsDetailsOpened &&
+			{ isModalOpen &&
 				<Modal
 					title='Детали ингредиента'
-					onClose={onModalIngredientDetailsClose}
+					onClose={closeModal}
 				>
 					{selectedIngredient && (
 						<IngredientDetails ingredient={selectedIngredient}/>

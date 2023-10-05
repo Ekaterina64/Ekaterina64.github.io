@@ -5,7 +5,7 @@
   left: 0;
 
   display: flex;
-  position: absolute;
+  position: fixed;
   justify-content: center;
   align-items: center;
 }

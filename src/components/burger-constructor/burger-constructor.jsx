@@ -1,8 +1,9 @@
 import classNames from "classnames"
 import { useContext, useState } from "react"
+import { useModal } from '../../hooks/use-modal.js'
 import { IngredientsDataContext } from '../../services/app-context.js'
 import { TotalPriceContext } from '../../services/burger-constructor-context.js'
-import { postOrder } from '../../utils/api.js'
+import { request } from '../../utils/api.js'
 import Modal from '../modal/modal'
 import OrderDetails from '../order-details/order-details'
 import styles from "./burger-constructor.module.css"
@@ -17,22 +18,24 @@ const BurgerConstructor = () => {
 
 	const [totalPrice, setTotalPrice] = useState(0);
 	const [orderDetails, setOrderDetails] = useState(null);
-	const [isModalOrderDetailsOpened, setIsModalOrderDetailsOpened] = useState(false);
-
-  const onModalOrderDetailsClose = () => {
-    setIsModalOrderDetailsOpened(false);
-  };
+	const [isModalOpen, openModal, closeModal] = useModal();
 
 	const getIngredientsIds = (ingredients) => ingredients.map((i) => i._id);
 
 	const onSubmit = () => {
     const ingredientsIds = getIngredientsIds([bun, ...fillings]);
-    postOrder({ ingredients: ingredientsIds })
-      .then((data) => {
-        setOrderDetails(data);
-        setIsModalOrderDetailsOpened(true);
-      })
-      .catch((err) => console.log(err));
+		request('orders', {
+			body: JSON.stringify({ingredients: ingredientsIds}),
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+		})
+    .then((data) => {
+			setOrderDetails(data);
+			openModal();
+		})
+		.catch((err) => console.log(err));
   };
 	
 	return (
@@ -43,10 +46,10 @@ const BurgerConstructor = () => {
 						<Burger bun={bun} fillings={fillings}/>
 						<PlaceOrder onSubmit={onSubmit}/>
 					</TotalPriceContext.Provider>
-					{ isModalOrderDetailsOpened &&
+					{ isModalOpen &&
 						<Modal
 							title=''
-							onClose={onModalOrderDetailsClose}
+							onClose={closeModal}
 						>
 							<OrderDetails orderNumber={orderDetails.order.number}/>
 						</Modal>

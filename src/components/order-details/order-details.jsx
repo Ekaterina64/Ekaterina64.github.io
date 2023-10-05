@@ -7,11 +7,11 @@ const OrderDetails = ({orderNumber}) => {
   return (
     <>
       <div className={styles.orderDetails}>
-        <h1 className={classNames("text text_type_digits-large pt-1 pb-8", styles.orderNumber)}>
+        <h1 className={classNames("text text_type_digits-large mb-15", styles.orderNumber)}>
           {orderNumber}
         </h1>
-        <p className="text text_type_main-medium pb-15">идентификатор заказа</p>
-        <img className="pb-15" src={iconDone} alt="Заказ принят" />
+        <p className="text text_type_main-medium mb-8">идентификатор заказа</p>
+        <img className="mb-15" src={iconDone} alt="Заказ принят" />
         <p className="text text_type_main-default pb-2">
           Ваш заказ начали готовить
         </p>

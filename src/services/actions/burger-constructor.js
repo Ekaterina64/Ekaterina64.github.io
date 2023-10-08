@@ -27,6 +27,10 @@ export function getOrder(ids) {
           type: GET_ORDER_FAILED
         });
       }
+    })
+    .catch((e) => {
+      console.log(e.message);
+      console.log(e.response)
     });
   };
 }

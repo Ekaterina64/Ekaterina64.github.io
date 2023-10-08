@@ -1,39 +1,31 @@
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components"
 import classNames from "classnames"
 import PropTypes from "prop-types"
-import { useState } from "react"
+import { Types } from "../../utils/ingredient-types.js"
 import styles from "./burger-ingredients.module.css"
 
-const TabContainer = ({types}) => {
-
-	const [current, setCurrent] = useState(types.BUN);
-  
-	const onTabClick = (value) => {
-		setCurrent(value);
-		const element = document.getElementById(value);
-    if (element) element.scrollIntoView({ behavior: "smooth" });
-	};
+const TabContainer = ({current, onClick}) => {
 
 	return (
 		<div className={classNames(styles.tabContainer, "mb-10")}>
 			<Tab
-				value={types.BUN}
-				active={current === types.BUN}
-				onClick={onTabClick}
+				value={Types.BUN}
+				active={current === Types.BUN}
+				onClick={onClick}
 			>
 				Булки
 			</Tab>
 			<Tab
-				value={types.SOUSE}
-				active={current === types.SOUSE}
-				onClick={onTabClick}
+				value={Types.SOUSE}
+				active={current === Types.SOUSE}
+				onClick={onClick}
 			>
 				Соусы
 			</Tab>
 			<Tab
-				value={types.MAIN}
-				active={current === types.MAIN}
-				onClick={onTabClick}
+				value={Types.MAIN}
+				active={current === Types.MAIN}
+				onClick={onClick}
 			>
 				Начинки
 			</Tab>
@@ -42,7 +34,8 @@ const TabContainer = ({types}) => {
 };
 
 TabContainer.propTypes = {
-	types: PropTypes.objectOf(PropTypes.string)
+	current: PropTypes.string.isRequired,
+	onClick: PropTypes.func.isRequired
 };
 
 export default TabContainer;

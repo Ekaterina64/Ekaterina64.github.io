@@ -1,15 +1,20 @@
 import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components"
 import classNames from "classnames"
 import PropTypes from "prop-types"
-import { useCallback } from "react"
-import { IngredientPropType } from "../../../../utils/prop-types.js"
-import styles from "../../burger-ingredients.module.css"
+import { useDispatch } from 'react-redux'
+import { SHOW_INFO } from '../../services/actions/burger-ingredients.js'
+import { IngredientPropType } from "../../utils/prop-types.js"
+import styles from "./burger-ingredients.module.css"
 
-const BurgerIngredient = ({item, count, onClick}) => {
-
-	const handleClick = useCallback(() => {
-		onClick(item);
-	}, [item, onClick] );
+const BurgerIngredient = ({item, count}) => {
+	const dispatch = useDispatch();
+	
+	const handleClick = () => {
+		dispatch({
+      type: SHOW_INFO,
+      item
+    });
+	};
 	
 	return (
 		<li className={styles.item}>
@@ -31,7 +36,6 @@ const BurgerIngredient = ({item, count, onClick}) => {
 BurgerIngredient.propTypes = {
 	item: PropTypes.shape(IngredientPropType).isRequired,
 	count: PropTypes.number.isRequired,
-	onClick: PropTypes.func.isRequired
 };
 
 export default BurgerIngredient;

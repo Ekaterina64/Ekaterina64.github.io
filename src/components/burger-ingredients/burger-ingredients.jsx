@@ -1,26 +1,47 @@
 import classNames from "classnames"
-import { useContext, useState } from 'react'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { useFilter } from "../../hooks/use-filter.js"
-import { useModal } from "../../hooks/use-modal.js"
-import { IngredientsDataContext } from '../../services/app-context.js'
+import { CLOSE_INFO, getIngredients } from '../../services/actions/burger-ingredients.js'
+import { Loader } from '../../ui/loader/loader.jsx'
 import { Types } from "../../utils/ingredient-types.js"
 import IngredientDetails from '../ingredient-details/ingredient-details.jsx'
 import Modal from '../modal/modal'
 import styles from "./burger-ingredients.module.css"
-import IngredientList from "./ingredient-list/ingredient-list.jsx"
-import TabContainer from "./tab-container/tab-container.jsx"
+import IngredientList from "./ingredient-list.jsx"
+import TabContainer from "./tab-container"
 
 const BurgerIngredients = () => {
-	const data = useContext(IngredientsDataContext);
-	const [ dataBun, dataMain, dataSouse ] = useFilter(data);
+	const dispatch = useDispatch();
+  const {
+    ingredients,
+    ingredientsRequest,
+		ingredientsFailed,
+		infoAboutIngredient,
+		showInfo
+  } = useSelector(state => state.burgerIngredients);
 
-	const [isModalOpen, openModal, closeModal] = useModal();
-	const [selectedIngredient, setSelectedIngredient] = useState(null);
+	useEffect(
+    () => {
+      if (!ingredients.length) dispatch(getIngredients());
+    },
+    [dispatch]
+  );
 
-	function handleClick(ingredient) {
-		setSelectedIngredient(ingredient);
-    openModal();
-  };
+	const [ dataBun, dataMain, dataSouse ] = useFilter(ingredients);
+
+	const handleClose = () => {
+		dispatch({type: CLOSE_INFO});
+	}
+
+	if(ingredientsRequest) {
+		return (
+			<Loader size="large" />
+		)
+	}
+	else if(ingredientsFailed) {
+		return <p>Что-то пошло не так... Попробуйте перезагрузить</p>
+	}
 	
   return (
     <div className={styles.section}>
@@ -30,19 +51,16 @@ const BurgerIngredients = () => {
       <TabContainer types={Types}/>
 			<div className={classNames(styles.ingredientsContainer, "custom-scroll")}>
 				<h2 id={Types.BUN} className="text text_type_main-medium mb-6">Булки</h2>
-				<IngredientList ingredients={dataBun} onClick={handleClick}/>
+				<IngredientList ingredients={dataBun}/>
 				<h2 id={Types.SOUSE} className="text text_type_main-medium mb-6 mt-10">Соусы</h2>
-				<IngredientList ingredients={dataSouse} onClick={handleClick}/>
+				<IngredientList ingredients={dataSouse}/>
 				<h2 id={Types.MAIN} className="text text_type_main-medium mb-6 mt-10">Начинки</h2>
-				<IngredientList ingredients={dataMain} onClick={handleClick}/>
+				<IngredientList ingredients={dataMain}/>
 			</div>
-			{ isModalOpen &&
-				<Modal
-					title='Детали ингредиента'
-					onClose={closeModal}
-				>
-					{selectedIngredient && (
-						<IngredientDetails ingredient={selectedIngredient}/>
+			{ showInfo &&
+				<Modal title='Детали ингредиента'onClose={handleClose}>
+					{infoAboutIngredient && (
+						<IngredientDetails ingredient={infoAboutIngredient}/>
 					)}
 				</Modal>
       }

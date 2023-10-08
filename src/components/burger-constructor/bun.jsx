@@ -2,7 +2,7 @@ import {
 	ConstructorElement
 } from "@ya.praktikum/react-developer-burger-ui-components"
 import PropTypes from "prop-types"
-import styles from "../../burger-constructor.module.css"
+import styles from "./burger-constructor.module.css"
 
 const Bun = (props) => {
 	return (

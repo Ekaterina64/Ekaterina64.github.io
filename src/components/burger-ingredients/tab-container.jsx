@@ -2,7 +2,7 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components"
 import classNames from "classnames"
 import PropTypes from "prop-types"
 import { useState } from "react"
-import styles from "../burger-ingredients.module.css"
+import styles from "./burger-ingredients.module.css"
 
 const TabContainer = ({types}) => {
 

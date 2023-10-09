@@ -2,27 +2,32 @@ import {
 	ConstructorElement
 } from "@ya.praktikum/react-developer-burger-ui-components"
 import PropTypes from "prop-types"
+import { useSelector } from 'react-redux'
 import styles from "./burger-constructor.module.css"
 
-const Bun = (props) => {
+const Bun = ({type}) => {
+
+	const { buns } = useSelector(state=>state.burgerConstructor.burger);
+	
 	return (
-		<div className={styles.bun}>
-			<ConstructorElement
-				type={props.type}
-				isLocked={true}
-				text={props.text}
-				price={props.price}
-				thumbnail={props.image}
-			/>
-		</div>
+		<>
+			{ buns.length &&
+				<div className={styles.bun}>
+					<ConstructorElement
+						type={type}
+						isLocked={true}
+						text={`${buns[0].name} ${type === 'top' ? '(верх)' : '(низ)'}`}
+						price={buns[0].price}
+						thumbnail={buns[0].image}
+					/>
+				</div>
+			}
+		</>
 	);
 };
 
 Bun.propTypes = {
-	type: PropTypes.string.isRequired,
-	text: PropTypes.string.isRequired,
-	price: PropTypes.number.isRequired,
-	image: PropTypes.string.isRequired,
+	type: PropTypes.string.isRequired
 };
 
 export default Bun;

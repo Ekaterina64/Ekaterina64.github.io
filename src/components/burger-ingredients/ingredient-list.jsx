@@ -9,7 +9,6 @@ const IngredientList = ({ingredients}) => {
 			{ingredients.map((ingredient) => (
 						<BurgerIngredient
 							item={ingredient}
-							count = {0}
 							key = {ingredient._id}
 						/>
 					)

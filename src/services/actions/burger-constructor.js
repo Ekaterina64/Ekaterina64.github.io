@@ -1,6 +1,5 @@
 import { getOrderRequest } from '../../utils/requests'
 
-export const SHOW_INFO = 'SHOW_INFO';
 export const CLOSE_INFO = 'CLOSE_INFO';
 
 export const GET_ORDER_REQUEST = 'GET_ORDER_REQUEST';
@@ -17,20 +16,13 @@ export function getOrder(ids) {
       type: GET_ORDER_REQUEST
     });
     getOrderRequest(ids).then(res => {
-      if (res && res.success) {
-        dispatch({
-          type: GET_ORDER_SUCCESS,
-          order: res.data
-        });
-      } else {
-        dispatch({
-          type: GET_ORDER_FAILED
-        });
-      }
+      dispatch({
+        type: GET_ORDER_SUCCESS,
+        order: res.order
+      });
     })
     .catch((e) => {
-      console.log(e.message);
-      console.log(e.response)
+      dispatch({ type: GET_ORDER_FAILED });
     });
   };
 }

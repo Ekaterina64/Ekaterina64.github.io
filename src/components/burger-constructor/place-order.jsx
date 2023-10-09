@@ -8,22 +8,24 @@ import { CLOSE_INFO, getOrder } from '../../services/actions/burger-constructor.
 import Modal from '../modal/modal'
 import OrderDetails from '../order-details/order-details'
 import styles from "./burger-constructor.module.css"
+import { totalPriceSelector } from './utils.js'
 
 const PlaceOrder = () => {
 	
 	const dispatch = useDispatch();
 
 	const {
-		totalCost,
 		order,
-		burger,
-		showInfo
+		orderRequest,
+		burger
 	} = useSelector(state => state.burgerConstructor);
+
+	const totalCost = useSelector(totalPriceSelector);
 
 	const getIngredientsIds = (ingredients) => ingredients.map((i) => i._id);
 
 	const onSubmit = () => {
-    const ingredientsIds = getIngredientsIds([burger.bun, ...burger.fillings]);
+    const ingredientsIds = getIngredientsIds([...burger.buns, ...burger.fillings]);
 		dispatch(getOrder(ingredientsIds));
   };
 
@@ -43,9 +45,9 @@ const PlaceOrder = () => {
 				size="large"
 				onClick={onSubmit}
 			>
-				Оформить заказ
+				{ orderRequest ? 'Отправляем...' : 'Оформить заказ' }
 			</Button>
-			{ showInfo &&
+			{ order &&
 				<Modal
 					title=''
 					onClose={handleClose}

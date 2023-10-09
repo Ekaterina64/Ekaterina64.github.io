@@ -5,22 +5,19 @@ import {
 	DELETE_FILLING,
 	GET_ORDER_FAILED,
 	GET_ORDER_REQUEST,
-	GET_ORDER_SUCCESS,
-	SHOW_INFO
+	GET_ORDER_SUCCESS
 } from '../actions/burger-constructor.js'
 
 const initialState = {
   burger: {
-		bun: null,
+		buns: [],
 		fillings: [],
 	},
 	
-	totalCost: 0,
 	order: null,
   oderRequest: false,
-  orderFailed: false,
+  orderFailed: false
 
-  showInfo: false
 };
 
 export const constructorReducer = (state = initialState, action) => {
@@ -47,16 +44,10 @@ export const constructorReducer = (state = initialState, action) => {
 				order: null
       };
     }
-    case SHOW_INFO: {
-      return {
-        ...state,
-        showInfo: true
-      };
-    }
     case CLOSE_INFO: {
       return {
         ...state,
-        showInfo: false,
+        order: null,
       };
     }
 		case ADD_BUN: {
@@ -64,7 +55,7 @@ export const constructorReducer = (state = initialState, action) => {
 				...state,
 				burger: {
 					...state.burger,
-					bun: action.bun
+					buns: [action.bun, action.bun]
 				}
 			};
 		}
@@ -84,7 +75,7 @@ export const constructorReducer = (state = initialState, action) => {
 				...state,
 				burger: {
 					...state.burger,
-					fillings: [...state.burger.fillings].filter(item => item._id !== action.id)
+					fillings: [...state.burger.fillings].filter(item => item.id !== action.id)
 				}
 			};
 		}

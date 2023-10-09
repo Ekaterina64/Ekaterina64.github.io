@@ -10,7 +10,6 @@ export const useTabs = () => {
 	const [currentTab, setCurrentTab] = useState(Types.BUN);
 
 	const onTabClick = (value) => {
-		setCurrentTab(value);
 		const element = document.getElementById(value);
     if (element) element.scrollIntoView({ behavior: "smooth" });
 	};

@@ -13,20 +13,13 @@ export function getIngredients() {
       type: GET_INGREDIENTS_REQUEST
     });
     getIngredientsRequest().then(res => {
-      if (res && res.success) {
-        dispatch({
-          type: GET_INGREDIENTS_SUCCESS,
-          ingredients: res.data
-        });
-      } else {
-        dispatch({
-          type: GET_INGREDIENTS_FAILED
-        });
-      }
+      dispatch({
+        type: GET_INGREDIENTS_SUCCESS,
+        ingredients: res.data
+      });
     })
     .catch((e) => {
-      console.log(e.message);
-      console.log(e.response)
+      dispatch({ type: GET_INGREDIENTS_FAILED });
     });
   };
 }

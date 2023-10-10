@@ -1,3 +1,4 @@
+import update from 'immutability-helper'
 import {
 	ADD_BUN,
 	ADD_FILLING,
@@ -5,7 +6,8 @@ import {
 	DELETE_FILLING,
 	GET_ORDER_FAILED,
 	GET_ORDER_REQUEST,
-	GET_ORDER_SUCCESS
+	GET_ORDER_SUCCESS,
+	MOVE_FILLING
 } from '../actions/burger-constructor.js'
 
 const initialState = {
@@ -17,7 +19,6 @@ const initialState = {
 	order: null,
   oderRequest: false,
   orderFailed: false
-
 };
 
 export const constructorReducer = (state = initialState, action) => {
@@ -76,6 +77,20 @@ export const constructorReducer = (state = initialState, action) => {
 				burger: {
 					...state.burger,
 					fillings: [...state.burger.fillings].filter(item => item.id !== action.id)
+				}
+			};
+		}
+		case MOVE_FILLING: {
+			return {
+				...state,
+				burger: {
+					...state.burger,
+					fillings: update(state.burger.fillings, {
+						$splice: [
+							[action.dragIndex, 1],
+							[action.hoverIndex, 0, state.burger.fillings[action.dragIndex]],
+						],
+					})
 				}
 			};
 		}

@@ -11,8 +11,7 @@ const initialState = {
   ingredientsRequest: false,
   ingredientsFailed: false,
 
-  infoAboutIngredient: null,
-  showInfo: false
+  infoAboutIngredient: null
 };
 
 export const ingredientsReducer = (state = initialState, action) => {
@@ -42,14 +41,12 @@ export const ingredientsReducer = (state = initialState, action) => {
     case SHOW_INFO: {
       return {
         ...state,
-        infoAboutIngredient: action.item,
-        showInfo: true
+        infoAboutIngredient: action.item
       };
     }
     case CLOSE_INFO: {
       return {
         ...state,
-        showInfo: false,
         infoAboutIngredient: null
       };
     }

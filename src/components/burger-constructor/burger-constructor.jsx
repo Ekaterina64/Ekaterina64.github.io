@@ -12,10 +12,10 @@ const BurgerConstructor = () => {
 	const dispatch = useDispatch();
 	const burger = useSelector(state => state.burgerConstructor.burger);
 
-	const [{ isHover }, dropTarget] = useDrop({
+	const [{ canDrop }, dropTarget] = useDrop({
 		accept: 'ingredient',
     collect: monitor => ({
-      isHover: monitor.isOver()
+			canDrop: monitor.canDrop()
     }),
     drop(item) { addIngredient({...item, id: uuidv4()}) }
   });
@@ -34,7 +34,9 @@ const BurgerConstructor = () => {
 			});
 		}
   };
-	const className = `${styles.burgerConstructor} mt-25 ${ isHover ? styles.onHover : ''}`;
+	const className = `${styles.burgerConstructor}
+										 ${ canDrop ? styles.drop : ''}
+										 mt-25 `;
 	return (
 		<div className={`${className}`} ref={dropTarget}>
 			{ ( burger.buns.length || burger.fillings.length ) ?

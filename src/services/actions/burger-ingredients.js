@@ -18,7 +18,7 @@ export function getIngredients() {
         ingredients: res.data
       });
     })
-    .catch((e) => {
+    .catch(() => {
       dispatch({ type: GET_INGREDIENTS_FAILED });
     });
   };

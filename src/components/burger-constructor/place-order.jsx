@@ -48,10 +48,7 @@ const PlaceOrder = () => {
 				{ orderRequest ? 'Отправляем...' : 'Оформить заказ' }
 			</Button>
 			{ order &&
-				<Modal
-					title=''
-					onClose={handleClose}
-				>
+				<Modal title='' onClose={handleClose}>
 					<OrderDetails orderNumber={order.number}/>
 				</Modal>
 			}

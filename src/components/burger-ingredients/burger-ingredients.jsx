@@ -18,8 +18,7 @@ const BurgerIngredients = () => {
     ingredients,
     ingredientsRequest,
 		ingredientsFailed,
-		infoAboutIngredient,
-		showInfo
+		infoAboutIngredient
   } = useSelector(state => state.burgerIngredients);
 
 	const [
@@ -73,11 +72,9 @@ const BurgerIngredients = () => {
 				<h2 ref={mainRef} id={Types.MAIN} className="text text_type_main-medium mb-6 mt-10">Начинки</h2>
 				<IngredientList ingredients={dataMain}/>
 			</div>
-			{ showInfo &&
+			{ infoAboutIngredient &&
 				<Modal title='Детали ингредиента' onClose={handleClose}>
-					{infoAboutIngredient && (
-						<IngredientDetails ingredient={infoAboutIngredient}/>
-					)}
+					<IngredientDetails ingredient={infoAboutIngredient}/>
 				</Modal>
       }
     </div>

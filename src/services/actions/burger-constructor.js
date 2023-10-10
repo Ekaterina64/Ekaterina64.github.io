@@ -9,6 +9,7 @@ export const GET_ORDER_FAILED = 'GET_ORDER_FAILED';
 export const ADD_BUN = 'ADD_BUN';
 export const ADD_FILLING = 'ADD_FILLING';
 export const DELETE_FILLING = 'DELETE_FILLING';
+export const MOVE_FILLING = 'MOVE_FILLING';
 
 export function getOrder(ids) {
   return function(dispatch) {
@@ -21,7 +22,7 @@ export function getOrder(ids) {
         order: res.order
       });
     })
-    .catch((e) => {
+    .catch(() => {
       dispatch({ type: GET_ORDER_FAILED });
     });
   };

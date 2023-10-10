@@ -90,7 +90,9 @@ FillingItem.propTypes = {
 	name: PropTypes.string.isRequired,
 	price: PropTypes.number.isRequired,
 	image: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired
+  id: PropTypes.string.isRequired,
+  index: PropTypes.number.isRequired,
+  moveFilling: PropTypes.func.isRequired
 };
 
 export default FillingItem;

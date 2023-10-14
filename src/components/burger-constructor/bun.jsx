@@ -1,17 +1,14 @@
-import {
-	ConstructorElement
-} from "@ya.praktikum/react-developer-burger-ui-components"
-import PropTypes from "prop-types"
+import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components'
+import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
-import styles from "./burger-constructor.module.css"
+import styles from './burger-constructor.module.css'
 
-const Bun = ({type}) => {
+const Bun = ({ type }) => {
+	const { buns } = useSelector(state => state.burgerConstructor.burger)
 
-	const { buns } = useSelector(state=>state.burgerConstructor.burger);
-	
 	return (
 		<>
-			{ buns.length &&
+			{buns.length && (
 				<div className={styles.bun}>
 					<ConstructorElement
 						type={type}
@@ -21,13 +18,13 @@ const Bun = ({type}) => {
 						thumbnail={buns[0].image}
 					/>
 				</div>
-			}
+			)}
 		</>
-	);
-};
+	)
+}
 
 Bun.propTypes = {
-	type: PropTypes.string.isRequired
-};
+	type: PropTypes.string.isRequired,
+}
 
-export default Bun;
+export default Bun

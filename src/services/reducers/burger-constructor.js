@@ -7,78 +7,78 @@ import {
 	GET_ORDER_FAILED,
 	GET_ORDER_REQUEST,
 	GET_ORDER_SUCCESS,
-	MOVE_FILLING
+	MOVE_FILLING,
 } from '../actions/burger-constructor.js'
 
 const initialState = {
-  burger: {
+	burger: {
 		buns: [],
 		fillings: [],
 	},
-	
+
 	order: null,
-  oderRequest: false,
-  orderFailed: false
-};
+	oderRequest: false,
+	orderFailed: false,
+}
 
 export const constructorReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case GET_ORDER_REQUEST: {
-      return {
-        ...state,
-        orderRequest: true
-      };
-    }
-    case GET_ORDER_SUCCESS: {
-      return {
-        ...state,
-        orderFailed: false,
+	switch (action.type) {
+		case GET_ORDER_REQUEST: {
+			return {
+				...state,
+				orderRequest: true,
+			}
+		}
+		case GET_ORDER_SUCCESS: {
+			return {
+				...state,
+				orderFailed: false,
 				order: action.order,
-        orderRequest: false
-      };
-    }
-    case GET_ORDER_FAILED: {
-      return {
-        ...state,
-        orderFailed: true,
-        orderRequest: false,
-				order: null
-      };
-    }
-    case CLOSE_INFO: {
-      return {
-        ...state,
-        order: null,
-      };
-    }
+				orderRequest: false,
+			}
+		}
+		case GET_ORDER_FAILED: {
+			return {
+				...state,
+				orderFailed: true,
+				orderRequest: false,
+				order: null,
+			}
+		}
+		case CLOSE_INFO: {
+			return {
+				...state,
+				order: null,
+			}
+		}
 		case ADD_BUN: {
 			return {
 				...state,
 				burger: {
 					...state.burger,
-					buns: [action.bun, action.bun]
-				}
-			};
+					buns: [action.bun, action.bun],
+				},
+			}
 		}
 		case ADD_FILLING: {
 			return {
 				...state,
 				burger: {
 					...state.burger,
-					fillings: [
-						...state.burger.fillings,
-						action.filling
-					]}
-			};
+					fillings: [...state.burger.fillings, action.filling],
+				},
+			}
 		}
 		case DELETE_FILLING: {
 			return {
 				...state,
 				burger: {
 					...state.burger,
-					fillings: [...state.burger.fillings].filter(item => item.id !== action.id)
-				}
-			};
+					fillings: [...state.burger.fillings].filter(
+						item => item.id !== action.id
+					),
+				},
+			}
 		}
 		case MOVE_FILLING: {
 			return {
@@ -90,12 +90,12 @@ export const constructorReducer = (state = initialState, action) => {
 							[action.dragIndex, 1],
 							[action.hoverIndex, 0, state.burger.fillings[action.dragIndex]],
 						],
-					})
-				}
-			};
+					}),
+				},
+			}
 		}
-    default: {
-      return state;
-    }
-  }
-};
+		default: {
+			return state
+		}
+	}
+}

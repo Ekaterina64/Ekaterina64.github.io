@@ -9,6 +9,7 @@ import {
 } from '../../services/actions/burger-ingredients.js'
 import { Loader } from '../../ui/loader/loader.jsx'
 import { Types } from '../../utils/ingredient-types.js'
+import { getBurgerIngredients } from '../../utils/selectors.js'
 import IngredientDetails from '../ingredient-details/ingredient-details.jsx'
 import Modal from '../modal/modal'
 import styles from './burger-ingredients.module.css'
@@ -22,7 +23,7 @@ const BurgerIngredients = () => {
 		ingredientsRequest,
 		ingredientsFailed,
 		infoAboutIngredient,
-	} = useSelector(state => state.burgerIngredients)
+	} = useSelector(getBurgerIngredients)
 
 	const [currentTab, bunsRef, sousesRef, mainRef, onTabClick] = useTabs()
 

@@ -3,13 +3,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import { v4 as uuidv4 } from 'uuid'
 import { ADD_BUN, ADD_FILLING } from '../../services/actions/burger-constructor'
 import { Types } from '../../utils/ingredient-types'
+import { getBurger } from '../../utils/selectors.js'
 import styles from './burger-constructor.module.css'
 import Burger from './burger.jsx'
 import PlaceOrder from './place-order'
 
 const BurgerConstructor = () => {
 	const dispatch = useDispatch()
-	const burger = useSelector(state => state.burgerConstructor.burger)
+	const burger = useSelector(getBurger)
 
 	const [{ canDrop }, dropTarget] = useDrop({
 		accept: 'ingredient',

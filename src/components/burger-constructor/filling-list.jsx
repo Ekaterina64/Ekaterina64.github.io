@@ -1,11 +1,12 @@
 import classNames from 'classnames'
 import { useDispatch, useSelector } from 'react-redux'
 import { MOVE_FILLING } from '../../services/actions/burger-constructor'
+import { getBurger } from '../../utils/selectors.js'
 import styles from './burger-constructor.module.css'
 import FillingItem from './filling-item.jsx'
 
 const FillingList = () => {
-	const { fillings } = useSelector(state => state.burgerConstructor.burger)
+	const { fillings } = useSelector(getBurger)
 	const dispatch = useDispatch()
 
 	const handleMove = (dragIndex, hoverIndex) => {

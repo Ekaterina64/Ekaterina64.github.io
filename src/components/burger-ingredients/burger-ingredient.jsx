@@ -9,6 +9,7 @@ import { useDrag } from 'react-dnd'
 import { useDispatch, useSelector } from 'react-redux'
 import { SHOW_INFO } from '../../services/actions/burger-ingredients.js'
 import { IngredientPropType } from '../../utils/prop-types.js'
+import { getBurger } from '../../utils/selectors.js'
 import styles from './burger-ingredients.module.css'
 
 const BurgerIngredient = ({ item }) => {
@@ -29,8 +30,7 @@ const BurgerIngredient = ({ item }) => {
 		}),
 	})
 
-	const buns = useSelector(state => state.burgerConstructor.burger.buns)
-	const fillings = useSelector(state => state.burgerConstructor.burger.fillings)
+	const { buns, fillings } = useSelector(getBurger)
 
 	const count = useMemo(() => {
 		const ingredients = [...buns, ...fillings]

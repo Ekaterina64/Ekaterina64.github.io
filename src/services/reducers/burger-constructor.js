@@ -49,6 +49,7 @@ export const constructorReducer = (state = initialState, action) => {
 			return {
 				...state,
 				order: null,
+				burger: { buns: [], fillings: [] },
 			}
 		}
 		case ADD_BUN: {

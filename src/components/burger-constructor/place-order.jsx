@@ -3,11 +3,13 @@ import {
 	CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components'
 import classNames from 'classnames'
+import { React, useCallback, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
 	CLOSE_INFO,
 	getOrder,
 } from '../../services/actions/burger-constructor.js'
+import { getBurgerConstructor } from '../../utils/selectors.js'
 import Modal from '../modal/modal'
 import OrderDetails from '../order-details/order-details'
 import styles from './burger-constructor.module.css'
@@ -16,13 +18,14 @@ import { totalPriceSelector } from './utils.js'
 const PlaceOrder = () => {
 	const dispatch = useDispatch()
 
-	const { order, orderRequest, burger } = useSelector(
-		state => state.burgerConstructor
-	)
+	const { order, orderRequest, burger } = useSelector(getBurgerConstructor)
 
 	const totalCost = useSelector(totalPriceSelector)
 
-	const getIngredientsIds = ingredients => ingredients.map(i => i._id)
+	const getIngredientsIds = useMemo(
+		ingredients => ingredients.map(i => i._id),
+		[]
+	)
 
 	const onSubmit = () => {
 		const ingredientsIds = getIngredientsIds([
@@ -32,9 +35,9 @@ const PlaceOrder = () => {
 		dispatch(getOrder(ingredientsIds))
 	}
 
-	const handleClose = () => {
+	const handleClose = useCallback(() => {
 		dispatch({ type: CLOSE_INFO })
-	}
+	}, [])
 
 	return (
 		<div className={classNames(styles.order, 'mt-10')}>
@@ -54,4 +57,4 @@ const PlaceOrder = () => {
 	)
 }
 
-export default PlaceOrder
+export default React.memo(PlaceOrder)

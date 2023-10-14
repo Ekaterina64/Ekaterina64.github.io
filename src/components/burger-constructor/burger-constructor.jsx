@@ -1,59 +1,48 @@
-import classNames from "classnames"
-import { useContext, useState } from "react"
-import { useModal } from '../../hooks/use-modal.js'
-import { IngredientsDataContext } from '../../services/app-context.js'
-import { TotalPriceContext } from '../../services/burger-constructor-context.js'
-import { request } from '../../utils/api.js'
-import Modal from '../modal/modal'
-import OrderDetails from '../order-details/order-details'
+import { useDrop } from 'react-dnd'
+import { useDispatch, useSelector } from 'react-redux'
+import { v4 as uuidv4 } from "uuid"
+import { ADD_BUN, ADD_FILLING } from '../../services/actions/burger-constructor'
+import { Types } from '../../utils/ingredient-types'
 import styles from "./burger-constructor.module.css"
-import Burger from './burger/burger.jsx'
-import PlaceOrder from "./place-order/place-order"
+import Burger from './burger.jsx'
+import PlaceOrder from "./place-order"
 
 const BurgerConstructor = () => {
 
-	const ingredients = useContext(IngredientsDataContext);
-	const bun = ingredients.find((item) => item.type === 'bun');
-	const fillings = ingredients.filter(item => item.type !== 'bun');
+	const dispatch = useDispatch();
+	const burger = useSelector(state => state.burgerConstructor.burger);
 
-	const [totalPrice, setTotalPrice] = useState(0);
-	const [orderDetails, setOrderDetails] = useState(null);
-	const [isModalOpen, openModal, closeModal] = useModal();
+	const [{ canDrop }, dropTarget] = useDrop({
+		accept: 'ingredient',
+    collect: monitor => ({
+			canDrop: monitor.canDrop()
+    }),
+    drop(item) { addIngredient({...item, id: uuidv4()}) }
+  });
 
-	const getIngredientsIds = (ingredients) => ingredients.map((i) => i._id);
-
-	const onSubmit = () => {
-    const ingredientsIds = getIngredientsIds([bun, ...fillings]);
-		request('orders', {
-			body: JSON.stringify({ingredients: ingredientsIds}),
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-		})
-    .then((data) => {
-			setOrderDetails(data);
-			openModal();
-		})
-		.catch((err) => console.log(err));
+	const addIngredient = (item) => {
+		if(item.type === Types.BUN) {
+			dispatch({
+				type: ADD_BUN,
+				bun: item
+			});
+		}
+		else {
+			dispatch({
+				type: ADD_FILLING,
+				filling: item
+			});
+		}
   };
-	
+	const className = `${styles.burgerConstructor}
+										 ${ canDrop ? styles.drop : ''}
+										 mt-25 `;
 	return (
-		<div className={classNames(styles.burgerConstructor, "mt-25")}>
-			{ ingredients.length ?
+		<div className={`${className}`} ref={dropTarget}>
+			{ ( burger.buns.length || burger.fillings.length ) ?
 				<>
-					<TotalPriceContext.Provider value={{ totalPrice, setTotalPrice }}>
-						<Burger bun={bun} fillings={fillings}/>
-						<PlaceOrder onSubmit={onSubmit}/>
-					</TotalPriceContext.Provider>
-					{ isModalOpen &&
-						<Modal
-							title=''
-							onClose={closeModal}
-						>
-							<OrderDetails orderNumber={orderDetails.order.number}/>
-						</Modal>
-					}
+					<Burger/>
+					<PlaceOrder/>
 				</>
 				:
 				<p className="text text_type_main-large">

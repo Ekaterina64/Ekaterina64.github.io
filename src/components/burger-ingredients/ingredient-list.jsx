@@ -1,17 +1,15 @@
 import PropTypes from "prop-types"
-import { IngredientPropType } from "../../../utils/prop-types.js"
-import styles from "../burger-ingredients.module.css"
-import BurgerIngredient from "./burger-ingredient/burger-ingredient"
+import { IngredientPropType } from "../../utils/prop-types.js"
+import BurgerIngredient from "./burger-ingredient.jsx"
+import styles from "./burger-ingredients.module.css"
 
-const IngredientList = ({ingredients, onClick}) => {
+const IngredientList = ({ingredients}) => {
 	return (
 		<ul className={styles.ingredientsList}>
 			{ingredients.map((ingredient) => (
 						<BurgerIngredient
 							item={ingredient}
-							count = {0}
 							key = {ingredient._id}
-							onClick={onClick}
 						/>
 					)
       )}
@@ -21,7 +19,6 @@ const IngredientList = ({ingredients, onClick}) => {
 
 IngredientList.propTypes = {
 	ingredients: PropTypes.arrayOf(PropTypes.shape(IngredientPropType)).isRequired,
-	onClick: PropTypes.func.isRequired
 };
 
 export default IngredientList;

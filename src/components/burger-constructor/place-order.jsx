@@ -3,7 +3,7 @@ import {
 	CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components'
 import classNames from 'classnames'
-import { React, useCallback, useMemo } from 'react'
+import { memo, useCallback, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
 	CLOSE_INFO,
@@ -15,23 +15,18 @@ import OrderDetails from '../order-details/order-details'
 import styles from './burger-constructor.module.css'
 import { totalPriceSelector } from './utils.js'
 
-const PlaceOrder = () => {
+const PlaceOrder = memo(() => {
 	const dispatch = useDispatch()
 
 	const { order, orderRequest, burger } = useSelector(getBurgerConstructor)
 
 	const totalCost = useSelector(totalPriceSelector)
 
-	const getIngredientsIds = useMemo(
-		ingredients => ingredients.map(i => i._id),
-		[]
+	const ingredientsIds = useMemo(
+		() => [...burger.buns, ...burger.fillings].map(i => i._id),
+		[burger]
 	)
-
-	const onSubmit = () => {
-		const ingredientsIds = getIngredientsIds([
-			...burger.buns,
-			...burger.fillings,
-		])
+	const handleSubmit = () => {
 		dispatch(getOrder(ingredientsIds))
 	}
 
@@ -45,7 +40,12 @@ const PlaceOrder = () => {
 				<span className='text text_type_digits-medium mr-2'>{totalCost}</span>
 				<CurrencyIcon type='primary' />
 			</p>
-			<Button htmlType='submit' type='primary' size='large' onClick={onSubmit}>
+			<Button
+				htmlType='submit'
+				type='primary'
+				size='large'
+				onClick={handleSubmit}
+			>
 				{orderRequest ? 'Отправляем...' : 'Оформить заказ'}
 			</Button>
 			{order && (
@@ -55,6 +55,6 @@ const PlaceOrder = () => {
 			)}
 		</div>
 	)
-}
+})
 
-export default React.memo(PlaceOrder)
+export default PlaceOrder

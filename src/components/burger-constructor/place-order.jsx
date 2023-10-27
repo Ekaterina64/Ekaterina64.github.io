@@ -2,14 +2,16 @@ import {
 	Button,
 	CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components'
-import classNames from 'classnames'
+
 import { memo, useCallback, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router'
+import { LOGIN } from '../../pages/index.jsx'
 import {
 	CLOSE_INFO,
 	getOrder,
 } from '../../services/actions/burger-constructor.js'
-import { getBurgerConstructor } from '../../utils/selectors.js'
+import { getBurgerConstructor, getUser } from '../../utils/selectors.js'
 import Modal from '../modal/modal'
 import OrderDetails from '../order-details/order-details'
 import styles from './burger-constructor.module.css'
@@ -19,6 +21,8 @@ const PlaceOrder = memo(() => {
 	const dispatch = useDispatch()
 
 	const { order, orderRequest, burger } = useSelector(getBurgerConstructor)
+	const user = useSelector(getUser)
+	const navigate = useNavigate()
 
 	const totalCost = useSelector(totalPriceSelector)
 
@@ -27,7 +31,11 @@ const PlaceOrder = memo(() => {
 		[burger]
 	)
 	const handleSubmit = () => {
-		dispatch(getOrder(ingredientsIds))
+		if (!user) {
+			navigate(LOGIN)
+		} else {
+			dispatch(getOrder(ingredientsIds))
+		}
 	}
 
 	const handleClose = useCallback(() => {
@@ -35,8 +43,8 @@ const PlaceOrder = memo(() => {
 	}, [])
 
 	return (
-		<div className={classNames(styles.order, 'mt-10')}>
-			<p className={classNames(styles.totalPrice, 'mr-10')}>
+		<div className={`${styles.order} mt-10`}>
+			<p className={`${styles.totalPrice} mr-10`}>
 				<span className='text text_type_digits-medium mr-2'>{totalCost}</span>
 				<CurrencyIcon type='primary' />
 			</p>

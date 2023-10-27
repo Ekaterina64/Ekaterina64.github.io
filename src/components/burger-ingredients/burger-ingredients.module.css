@@ -27,7 +27,6 @@
 	width: 272px;
 	height: 208px;
 	position: relative;
-	cursor: pointer;
 }
 
 .price {
@@ -44,4 +43,9 @@
 
 .tabContainer {
 	display: flex;
+}
+
+.link {
+	text-decoration: none;
+	color: white;
 }

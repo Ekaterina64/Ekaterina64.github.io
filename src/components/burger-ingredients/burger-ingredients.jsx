@@ -1,41 +1,20 @@
-import classNames from 'classnames'
-import { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useFilter } from '../../hooks/use-filter.js'
 import { useTabs } from '../../hooks/use-tab.js'
-import {
-	CLOSE_INFO,
-	getIngredients,
-} from '../../services/actions/burger-ingredients.js'
 import { Loader } from '../../ui/loader/loader.jsx'
 import { Types } from '../../utils/ingredient-types.js'
 import { getBurgerIngredients } from '../../utils/selectors.js'
-import IngredientDetails from '../ingredient-details/ingredient-details.jsx'
-import Modal from '../modal/modal'
 import styles from './burger-ingredients.module.css'
 import IngredientList from './ingredient-list.jsx'
 import TabContainer from './tab-container'
 
 const BurgerIngredients = () => {
-	const dispatch = useDispatch()
-	const {
-		ingredients,
-		ingredientsRequest,
-		ingredientsFailed,
-		infoAboutIngredient,
-	} = useSelector(getBurgerIngredients)
+	const { ingredients, ingredientsRequest, ingredientsFailed } =
+		useSelector(getBurgerIngredients)
 
 	const [currentTab, bunsRef, sousesRef, mainRef, onTabClick] = useTabs()
 
 	const [dataBun, dataMain, dataSouse] = useFilter(ingredients)
-
-	useEffect(() => {
-		if (!ingredients.length) dispatch(getIngredients())
-	}, [dispatch])
-
-	const handleClose = () => {
-		dispatch({ type: CLOSE_INFO })
-	}
 
 	if (ingredientsRequest) {
 		return <Loader size='large' />
@@ -49,7 +28,7 @@ const BurgerIngredients = () => {
 				Соберите бургер
 			</h1>
 			<TabContainer current={currentTab} onClick={onTabClick} />
-			<div className={classNames(styles.ingredientsContainer, 'custom-scroll')}>
+			<div className={`${styles.ingredientsContainer} custom-scroll`}>
 				<h2
 					ref={bunsRef}
 					id={Types.BUN}
@@ -75,11 +54,6 @@ const BurgerIngredients = () => {
 				</h2>
 				<IngredientList ingredients={dataMain} />
 			</div>
-			{infoAboutIngredient && (
-				<Modal title='Детали ингредиента' onClose={handleClose}>
-					<IngredientDetails ingredient={infoAboutIngredient} />
-				</Modal>
-			)}
 		</div>
 	)
 }

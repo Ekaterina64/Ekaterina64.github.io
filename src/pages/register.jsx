@@ -6,15 +6,16 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
+import { LOGIN, MAIN } from '.'
 import { register } from '../services/actions/user'
+import { getIsAuthenticated } from '../utils/selectors'
 import styles from './pages.module.css'
 
 const RegisterPage = () => {
 	const [user, setUser] = useState({ name: '', email: '', password: '' })
 	const dispatch = useDispatch()
-	const isAuthenticated = useSelector(state => state.user.isAuthenticated)
-	const navigate = useNavigate()
+	const isAuthenticated = useSelector(getIsAuthenticated)
 
 	const handleSubmit = e => {
 		e.preventDefault()
@@ -28,7 +29,7 @@ const RegisterPage = () => {
 	}
 
 	if (isAuthenticated) {
-		return navigate('/', { replace: true })
+		return <Navigate to={MAIN} />
 	}
 	return (
 		<div className={styles.page}>
@@ -52,7 +53,7 @@ const RegisterPage = () => {
 			</form>
 			<p className={`${styles.text} text text_type_main-default`}>
 				Уже зарегистрированы?{' '}
-				<Link to='/login' className={styles.link}>
+				<Link to={LOGIN} className={styles.link}>
 					Войти
 				</Link>
 			</p>

@@ -2,29 +2,34 @@ import {
 	Button,
 	EmailInput,
 } from '@ya.praktikum/react-developer-burger-ui-components'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
+import { LOGIN, RESET_PASSWORD } from '.'
 import { forgotPassword } from '../services/actions/user'
+import { getForgotPasswordSuccess } from '../utils/selectors'
 import styles from './pages.module.css'
 
 const ForgotPasswordPage = () => {
 	const [email, setEmail] = useState('')
-	const mayResetPassword = useSelector(state => state.user.mayResetPassword)
 	const dispatch = useDispatch()
-	const navigate = useNavigate()
+	const forgotPasswordSuccess = useSelector(getForgotPasswordSuccess)
 
 	const handleChange = e => {
 		setEmail(e.target.value)
 	}
-	const handleSubmit = e => {
-		e.preventDefault()
-		dispatch(forgotPassword(email))
+	const handleSubmit = useCallback(
+		e => {
+			e.preventDefault()
+			dispatch(forgotPassword(email))
+		},
+		[dispatch, email]
+	)
+
+	if (forgotPasswordSuccess) {
+		return <Navigate to={RESET_PASSWORD} />
 	}
 
-	if (mayResetPassword) {
-		navigate('/reset-password')
-	}
 	return (
 		<div className={styles.page}>
 			<h2 className={`${styles.title} text text_type_main-medium`}>
@@ -40,12 +45,13 @@ const ForgotPasswordPage = () => {
 					onChange={handleChange}
 					value={email}
 					name='email'
+					autoComplete='on'
 				/>
 				<Button htmlType='submit'>Восстановить</Button>
 			</form>
 			<p className={`${styles.text} text text_type_main-default`}>
 				Вспомнили пароль?{' '}
-				<Link to='/login' className={styles.link}>
+				<Link to={LOGIN} className={styles.link}>
 					Войти
 				</Link>
 			</p>

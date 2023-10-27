@@ -4,8 +4,11 @@ export const GET_INGREDIENTS_REQUEST = 'GET_ITEMS_REQUEST'
 export const GET_INGREDIENTS_SUCCESS = 'GET_ITEMS_SUCCESS'
 export const GET_INGREDIENTS_FAILED = 'GET_ITEMS_FAILED'
 
-export const SHOW_INFO = 'SHOW_INFO'
-export const CLOSE_INFO = 'CLOSE_INFO'
+export const getIngredientById = id => state => {
+	return state.burgerIngredients.ingredients.find(
+		ingredient => ingredient._id === id
+	)
+}
 
 export function getIngredients() {
 	return function (dispatch) {

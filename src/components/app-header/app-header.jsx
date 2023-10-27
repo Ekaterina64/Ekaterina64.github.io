@@ -4,32 +4,46 @@ import {
 	Logo,
 	ProfileIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components'
-import classNames from 'classnames'
+import { useSelector } from 'react-redux'
+import { Link, useLocation } from 'react-router-dom'
+import { FEED, MAIN, PROFILE } from '../../pages'
+import { getUser } from '../../utils/selectors'
 import styles from './app-header.module.css'
+import HeaderLink from './header-link'
 
 const AppHeader = () => {
+	const user = useSelector(getUser)
+
+	const location = useLocation()
+
+	const iconType = path =>
+		(location.pathname.startsWith(path) && path !== MAIN) ||
+		location.pathname === path
+			? 'primary'
+			: 'secondary'
+
 	return (
 		<header className={styles.header}>
 			<div className={styles.inner_header}>
-				<a className={classNames(styles.link, styles.link_active)} href='/'>
-					<BurgerIcon type='primary' />
-					<p className='text text_type_main-default ml-2'>Конструктор</p>
-				</a>
-				<a className={classNames(styles.link, 'ml-2')} href='/'>
-					<ListIcon type='secondary' />
-					<p className='text text_type_main-default text_color_inactive ml-2'>
-						Лента заказов
-					</p>
-				</a>
-				<a className={styles.logo} href='/'>
+				<HeaderLink
+					name='Конструктор'
+					link={MAIN}
+					icon={<BurgerIcon type={iconType(MAIN)} />}
+				/>
+				<HeaderLink
+					name='Лента заказов'
+					link={FEED}
+					icon={<ListIcon type={iconType(FEED)} />}
+				/>
+				<Link to={MAIN} className={styles.logo}>
 					<Logo />
-				</a>
-				<a className={classNames(styles.link, styles.link_right)} href='/'>
-					<ProfileIcon type='secondary' />
-					<p className='text text_type_main-default text_color_inactive ml-2'>
-						Личный кабинет
-					</p>
-				</a>
+				</Link>
+				<HeaderLink
+					name={user ? user.name : 'Личный кабинет'}
+					link={PROFILE}
+					icon={<ProfileIcon type={iconType(PROFILE)} />}
+					extraClass={styles.link_right}
+				/>
 			</div>
 		</header>
 	)

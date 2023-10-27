@@ -6,12 +6,12 @@ const requestConfig = {
 }
 
 //Main
-export const getIngredientsRequest = () => {
-	return request('ingredients')
+export const getIngredientsRequest = async () => {
+	return await request('ingredients')
 }
 
-export const getOrderRequest = ingredientsIds => {
-	return request('orders', {
+export const getOrderRequest = async ingredientsIds => {
+	return await request('orders', {
 		body: JSON.stringify({ ingredients: ingredientsIds }),
 		method: 'POST',
 		headers: requestConfig.headers,
@@ -19,8 +19,8 @@ export const getOrderRequest = ingredientsIds => {
 }
 
 //User
-export const postRegisterRequest = user => {
-	return request('auth/register', {
+export const postRegisterRequest = async user => {
+	return await request('auth/register', {
 		body: JSON.stringify({
 			email: user.email,
 			password: user.password,
@@ -31,8 +31,8 @@ export const postRegisterRequest = user => {
 	})
 }
 
-export const loginRequest = user => {
-	return request('auth/login', {
+export const loginRequest = async user => {
+	return await request('auth/login', {
 		body: JSON.stringify({
 			email: user.email,
 			password: user.password,
@@ -42,25 +42,24 @@ export const loginRequest = user => {
 	})
 }
 
-export const logoutRequest = () => {
-	return request('auth/logout', {
+export const logoutRequest = async () => {
+	return await request('auth/logout', {
 		method: 'POST',
 		headers: requestConfig.headers,
 		body: JSON.stringify({ token: getCookie('refreshToken') }),
 	})
 }
 
-export const postForgotPasswordRequest = email => {
-	return request('password-reset', {
+export const postForgotPasswordRequest = async email => {
+	return await request('password-reset', {
 		body: JSON.stringify({ email: email }),
 		method: 'POST',
 		headers: requestConfig.headers,
 	})
 }
 
-export const postResetPasswordRequest = newPassword => {
-	console.log(newPassword)
-	return request('password-reset/reset', {
+export const postResetPasswordRequest = async newPassword => {
+	return await request('password-reset/reset', {
 		body: JSON.stringify({
 			password: newPassword.password,
 			token: newPassword.token,
@@ -70,8 +69,8 @@ export const postResetPasswordRequest = newPassword => {
 	})
 }
 
-export const getUserRequest = () => {
-	return request('auth/user', {
+export const getUserRequest = async () => {
+	return await request('auth/user', {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
@@ -80,10 +79,25 @@ export const getUserRequest = () => {
 	})
 }
 
-export const resetTokenRequest = () => {
-	return request('auth/token', {
+export const resetTokenRequest = async () => {
+	return await request('auth/token', {
 		method: 'POST',
 		headers: requestConfig.headers,
 		body: JSON.stringify({ token: getCookie('refreshToken') }),
+	})
+}
+
+export const updateUserDataRequest = async (name, email, password) => {
+	return await request('auth/user', {
+		method: 'PATCH',
+		headers: {
+			'Content-Type': 'application/json',
+			Authorization: 'Bearer ' + getCookie('accessToken'),
+		},
+		body: JSON.stringify({
+			name,
+			email,
+			password,
+		}),
 	})
 }

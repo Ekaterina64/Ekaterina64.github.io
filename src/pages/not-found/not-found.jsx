@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 
+import { MAIN } from '..'
 import styles from './not-found.module.css'
 
 const NotFound404Page = () => {
@@ -14,7 +15,7 @@ const NotFound404Page = () => {
 				<br />
 				<p className='text text_type_main-medium'>
 					Check the address or try{' '}
-					<Link to='/' className={styles.link}>
+					<Link to={MAIN} className={styles.link}>
 						Constructor
 					</Link>
 				</p>

@@ -7,6 +7,7 @@ import {
 	postRegisterRequest,
 	postResetPasswordRequest,
 	resetTokenRequest,
+	updateUserDataRequest,
 } from '../../utils/requests'
 
 export const USER_LOGIN_REQUEST = 'USER_LOGIN_REQUEST'
@@ -36,6 +37,10 @@ export const USER_DATA_FAILED = 'USER_DATA_FAILED'
 export const REFRESH_ACCESS_TOKEN_REQUEST = 'REFRESH_ACCESS_TOKEN_REQUEST'
 export const REFRESH_ACCESS_TOKEN_SUCCESS = 'REFRESH_ACCESS_TOKEN_SUCCESS'
 export const REFRESH_ACCESS_TOKEN_FAILED = 'REFRESH_ACCESS_TOKEN_FAILED'
+
+export const UPDATE_USER_REQUEST = 'UPDATE_USER_REQUEST'
+export const UPDATE_USER_SUCCESS = 'UPDATE_USER_SUCCESS'
+export const UPDATE_USER_FAILED = 'UPDATE_USER_FAILED'
 
 export function login(user) {
 	return function (dispatch) {
@@ -144,6 +149,22 @@ export function resetPassword(newPassword) {
 			})
 			.catch(() => {
 				dispatch({ type: RESET_PASSWORD_FAILED })
+			})
+	}
+}
+
+export const updateUser = (name, email, password) => {
+	return function (dispatch) {
+		dispatch({ type: UPDATE_USER_REQUEST })
+		updateUserDataRequest(name, email, password)
+			.then(res => {
+				dispatch({
+					type: UPDATE_USER_SUCCESS,
+					payload: res,
+				})
+			})
+			.catch(() => {
+				dispatch({ type: UPDATE_USER_FAILED })
 			})
 	}
 }

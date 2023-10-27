@@ -1,0 +1,53 @@
+.main {
+	display: flex;
+	margin: 120px auto;
+	max-width: 1240px;
+	width: calc(100% - 100px);
+}
+
+.link {
+	text-decoration: none;
+	transition: opacity 0.1s ease-in-out;
+	width: 320px;
+	height: 64px;
+	display: flex;
+	align-items: center;
+}
+
+.link:hover {
+	opacity: 0.8;
+}
+
+.sidebar {
+	display: flex;
+	flex-direction: column;
+	max-width: 320px;
+}
+
+.active {
+	color: #f2f2f3;
+}
+
+.tip {
+	opacity: 0.4;
+}
+
+.userInfo {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	row-gap: 24px;
+}
+
+.buttons {
+	display: flex;
+	flex-direction: row;
+	gap: 8px;
+	align-self: flex-end;
+}

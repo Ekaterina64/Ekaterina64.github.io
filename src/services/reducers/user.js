@@ -11,6 +11,9 @@ import {
 	RESET_PASSWORD_FAILED,
 	RESET_PASSWORD_REQUEST,
 	RESET_PASSWORD_SUCCESS,
+	UPDATE_USER_FAILED,
+	UPDATE_USER_REQUEST,
+	UPDATE_USER_SUCCESS,
 	USER_DATA_FAILED,
 	USER_DATA_REQUEST,
 	USER_DATA_SUCCESS,
@@ -41,17 +44,17 @@ const initialState = {
 
 	forgotPasswordRequest: false,
 	forgotPasswordFailed: false,
-
-	mayResetPassword: false,
+	forgotPasswordSuccess: false,
 
 	resetPasswordRequest: false,
 	resetPasswordFailed: false,
+	resetPasswordSuccess: false,
+
+	updateUserRequest: false,
+	updateUserFailed: false,
 
 	isAuthenticated: false,
-	user: {
-		email: '',
-		name: '',
-	},
+	user: null,
 	accessToken: '',
 	refreshToken: '',
 }
@@ -111,14 +114,14 @@ export const userReducer = (state = initialState, action) => {
 			return {
 				...state,
 				forgotPasswordRequest: false,
-				mayResetPassword: true,
+				forgotPasswordSuccess: true,
 			}
 		case FORGOT_PASSWORD_FAILED:
 			return {
 				...state,
 				forgotPasswordRequest: false,
 				forgotPasswordFailed: true,
-				mayResetPassword: false,
+				forgotPasswordSuccess: false,
 			}
 		case RESET_PASSWORD_REQUEST:
 			return { ...state, resetPasswordRequest: true }
@@ -126,12 +129,15 @@ export const userReducer = (state = initialState, action) => {
 			return {
 				...state,
 				resetPasswordRequest: false,
+				forgotPasswordSuccess: false,
+				resetPasswordSuccess: true,
 			}
 		case RESET_PASSWORD_FAILED:
 			return {
 				...state,
 				resetPasswordRequest: false,
 				resetPasswordFailed: true,
+				resetPasswordSuccess: false,
 			}
 		case REFRESH_ACCESS_TOKEN_REQUEST:
 			return { ...state, accessTokenRequest: true }
@@ -145,6 +151,12 @@ export const userReducer = (state = initialState, action) => {
 			}
 		case REFRESH_ACCESS_TOKEN_FAILED:
 			return { ...state, accessTokenFailed: true }
+		case UPDATE_USER_REQUEST:
+			return { ...state, updateUserRequest: true }
+		case UPDATE_USER_SUCCESS:
+			return { ...state, updateUserRequest: false, user: action.payload.user }
+		case UPDATE_USER_FAILED:
+			return { ...state, updateUserRequest: false, updateUserFailed: true }
 		default:
 			return state
 	}

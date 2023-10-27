@@ -1,10 +1,17 @@
-import classNames from 'classnames'
-import PropTypes from 'prop-types'
-import { IngredientPropType } from '../../utils/prop-types.js'
+import { useSelector } from 'react-redux'
+import { useParams } from 'react-router'
+import { getIngredientById } from '../../services/actions/burger-ingredients'
 import EnergyValues from './energy-values/energy-values'
 import styles from './ingredient-details.module.css'
 
-const IngredientDetails = ({ ingredient }) => {
+const IngredientDetails = () => {
+	const { id } = useParams()
+
+	const ingredient = useSelector(getIngredientById(id))
+
+	if (!ingredient) {
+		return <div>Ingredient not found</div>
+	}
 	return (
 		<>
 			<img
@@ -13,20 +20,16 @@ const IngredientDetails = ({ ingredient }) => {
 				alt={ingredient.name}
 			/>
 			<h2
-				className={classNames(
-					'text text_type_main-medium mt-4 mb-8',
-					styles.ingredient_name
-				)}
+				className={`
+					text text_type_main-medium mt-4 mb-8
+					${styles.ingredient_name}
+				`}
 			>
 				{ingredient.name}
 			</h2>
 			<EnergyValues {...ingredient} />
 		</>
 	)
-}
-
-IngredientDetails.propTypes = {
-	ingredient: PropTypes.shape(IngredientPropType).isRequired,
 }
 
 export default IngredientDetails

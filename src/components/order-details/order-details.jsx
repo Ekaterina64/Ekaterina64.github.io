@@ -1,4 +1,3 @@
-import classNames from 'classnames'
 import PropTypes from 'prop-types'
 import iconDone from '../../images/done.svg'
 import styles from './order-details.module.css'
@@ -8,10 +7,10 @@ const OrderDetails = ({ orderNumber }) => {
 		<>
 			<div className={styles.orderDetails}>
 				<h1
-					className={classNames(
-						'text text_type_digits-large mb-15',
-						styles.orderNumber
-					)}
+					className={`
+						text text_type_digits-large mb-15
+						${styles.orderNumber}
+					`}
 				>
 					{orderNumber}
 				</h1>

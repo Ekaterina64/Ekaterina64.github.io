@@ -1,4 +1,3 @@
-import classNames from 'classnames'
 import { useDispatch, useSelector } from 'react-redux'
 import { MOVE_FILLING } from '../../services/actions/burger-constructor'
 import { getBurger } from '../../utils/selectors.js'
@@ -17,9 +16,7 @@ const FillingList = () => {
 		})
 	}
 	return (
-		<ul
-			className={classNames(styles.list, 'custom-scroll mt-4 mb-4 pl-4 pr-1')}
-		>
+		<ul className={`${styles.list} custom-scroll mt-4 mb-4 pl-4 pr-1`}>
 			{fillings.map((fillingItem, index) => {
 				return (
 					<FillingItem

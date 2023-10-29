@@ -2,9 +2,6 @@ import {
 	FORGOT_PASSWORD_FAILED,
 	FORGOT_PASSWORD_REQUEST,
 	FORGOT_PASSWORD_SUCCESS,
-	REFRESH_ACCESS_TOKEN_FAILED,
-	REFRESH_ACCESS_TOKEN_REQUEST,
-	REFRESH_ACCESS_TOKEN_SUCCESS,
 	REGISTER_FAILED,
 	REGISTER_REQUEST,
 	REGISTER_SUCCESS,
@@ -139,18 +136,6 @@ export const userReducer = (state = initialState, action) => {
 				resetPasswordFailed: true,
 				resetPasswordSuccess: false,
 			}
-		case REFRESH_ACCESS_TOKEN_REQUEST:
-			return { ...state, accessTokenRequest: true }
-		case REFRESH_ACCESS_TOKEN_SUCCESS:
-			return {
-				...state,
-				accessTokenRequest: false,
-				accessTokenFailed: false,
-				accessToken: action.payload.accessToken.split('Bearer ')[1],
-				refreshToken: action.payload.refreshToken,
-			}
-		case REFRESH_ACCESS_TOKEN_FAILED:
-			return { ...state, accessTokenFailed: true }
 		case UPDATE_USER_REQUEST:
 			return { ...state, updateUserRequest: true }
 		case UPDATE_USER_SUCCESS:

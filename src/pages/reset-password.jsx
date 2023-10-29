@@ -3,10 +3,11 @@ import {
 	Input,
 	PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components'
-import { useCallback, useState } from 'react'
+import { useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, Navigate } from 'react-router-dom'
 import { LOGIN } from '.'
+import { useForm } from '../hooks/use-form'
 import { resetPassword } from '../services/actions/user'
 import { getResetPasswordSuccess } from '../utils/selectors'
 import styles from './pages.module.css'
@@ -15,7 +16,7 @@ const ResetPasswordPage = () => {
 	const dispatch = useDispatch()
 	const resetPasswordSuccess = useSelector(getResetPasswordSuccess)
 
-	const [newPassword, setNewPassword] = useState({
+	const { values, handleChange } = useForm({
 		password: '',
 		token: '',
 	})
@@ -23,14 +24,10 @@ const ResetPasswordPage = () => {
 	const handleSubmit = useCallback(
 		e => {
 			e.preventDefault()
-			dispatch(resetPassword(newPassword))
+			dispatch(resetPassword(values))
 		},
-		[dispatch, newPassword]
+		[dispatch, values]
 	)
-
-	const handleChange = e => {
-		setNewPassword({ ...newPassword, [e.target.name]: e.target.value })
-	}
 
 	if (resetPasswordSuccess) {
 		return <Navigate to={LOGIN} />
@@ -44,13 +41,13 @@ const ResetPasswordPage = () => {
 			<form onSubmit={handleSubmit} className={styles.form}>
 				<PasswordInput
 					placeholder='Введите новый пароль'
-					value={newPassword.password}
+					value={values.password}
 					onChange={handleChange}
 					name='password'
 				/>
 				<Input
 					placeholder='Введите код из письма'
-					value={newPassword.token}
+					value={values.token}
 					onChange={handleChange}
 					name='token'
 				/>

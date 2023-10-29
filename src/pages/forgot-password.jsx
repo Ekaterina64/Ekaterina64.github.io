@@ -2,28 +2,26 @@ import {
 	Button,
 	EmailInput,
 } from '@ya.praktikum/react-developer-burger-ui-components'
-import { useCallback, useState } from 'react'
+import { useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, Navigate } from 'react-router-dom'
 import { LOGIN, RESET_PASSWORD } from '.'
+import { useForm } from '../hooks/use-form'
 import { forgotPassword } from '../services/actions/user'
 import { getForgotPasswordSuccess } from '../utils/selectors'
 import styles from './pages.module.css'
 
 const ForgotPasswordPage = () => {
-	const [email, setEmail] = useState('')
+	const { values, handleChange } = useForm({ email: '' })
 	const dispatch = useDispatch()
 	const forgotPasswordSuccess = useSelector(getForgotPasswordSuccess)
 
-	const handleChange = e => {
-		setEmail(e.target.value)
-	}
 	const handleSubmit = useCallback(
 		e => {
 			e.preventDefault()
-			dispatch(forgotPassword(email))
+			dispatch(forgotPassword(values.email))
 		},
-		[dispatch, email]
+		[dispatch, values.email]
 	)
 
 	if (forgotPasswordSuccess) {
@@ -43,7 +41,7 @@ const ForgotPasswordPage = () => {
 				<EmailInput
 					placeholder={'Укажите e-mail'}
 					onChange={handleChange}
-					value={email}
+					value={values.email}
 					name='email'
 					autoComplete='on'
 				/>

@@ -20,7 +20,7 @@ import {
 } from '../../pages'
 
 import { getIngredients } from '../../services/actions/burger-ingredients'
-import { getUserData } from '../../services/actions/user'
+import { ACCESS_TOKEN, getUserData } from '../../services/actions/user'
 import { getCookie } from '../../utils/cookies'
 import { getForgotPasswordSuccess, getUser } from '../../utils/selectors'
 import AppHeader from '../app-header/app-header'
@@ -39,7 +39,7 @@ const App = () => {
 
 	const forgotPasswordSuccess = useSelector(getForgotPasswordSuccess)
 	const user = useSelector(getUser)
-	const access = getCookie('accessToken')
+	const access = getCookie(ACCESS_TOKEN)
 
 	useEffect(() => {
 		dispatch(getIngredients())

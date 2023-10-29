@@ -1,4 +1,5 @@
-import { request } from './api.js'
+import { ACCESS_TOKEN, REFRESH_TOKEN } from '../services/actions/user.js'
+import { request, requestWithRefresh } from './api.js'
 import { getCookie } from './cookies'
 
 const requestConfig = {
@@ -46,7 +47,7 @@ export const logoutRequest = async () => {
 	return await request('auth/logout', {
 		method: 'POST',
 		headers: requestConfig.headers,
-		body: JSON.stringify({ token: getCookie('refreshToken') }),
+		body: JSON.stringify({ token: getCookie(REFRESH_TOKEN) }),
 	})
 }
 
@@ -70,11 +71,11 @@ export const postResetPasswordRequest = async newPassword => {
 }
 
 export const getUserRequest = async () => {
-	return await request('auth/user', {
+	return await requestWithRefresh('auth/user', {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
-			Authorization: 'Bearer ' + getCookie('accessToken'),
+			Authorization: 'Bearer ' + getCookie(ACCESS_TOKEN),
 		},
 	})
 }
@@ -83,16 +84,16 @@ export const resetTokenRequest = async () => {
 	return await request('auth/token', {
 		method: 'POST',
 		headers: requestConfig.headers,
-		body: JSON.stringify({ token: getCookie('refreshToken') }),
+		body: JSON.stringify({ token: getCookie(REFRESH_TOKEN) }),
 	})
 }
 
 export const updateUserDataRequest = async (name, email, password) => {
-	return await request('auth/user', {
+	return await requestWithRefresh('auth/user', {
 		method: 'PATCH',
 		headers: {
 			'Content-Type': 'application/json',
-			Authorization: 'Bearer ' + getCookie('accessToken'),
+			Authorization: 'Bearer ' + getCookie(ACCESS_TOKEN),
 		},
 		body: JSON.stringify({
 			name,

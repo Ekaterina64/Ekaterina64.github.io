@@ -6,7 +6,6 @@ import {
 	postForgotPasswordRequest,
 	postRegisterRequest,
 	postResetPasswordRequest,
-	resetTokenRequest,
 	updateUserDataRequest,
 } from '../../utils/requests'
 
@@ -34,21 +33,20 @@ export const USER_DATA_REQUEST = 'USER_DATA_REQUEST'
 export const USER_DATA_SUCCESS = 'USER_DATA_SUCCESS'
 export const USER_DATA_FAILED = 'USER_DATA_FAILED'
 
-export const REFRESH_ACCESS_TOKEN_REQUEST = 'REFRESH_ACCESS_TOKEN_REQUEST'
-export const REFRESH_ACCESS_TOKEN_SUCCESS = 'REFRESH_ACCESS_TOKEN_SUCCESS'
-export const REFRESH_ACCESS_TOKEN_FAILED = 'REFRESH_ACCESS_TOKEN_FAILED'
-
 export const UPDATE_USER_REQUEST = 'UPDATE_USER_REQUEST'
 export const UPDATE_USER_SUCCESS = 'UPDATE_USER_SUCCESS'
 export const UPDATE_USER_FAILED = 'UPDATE_USER_FAILED'
+
+export const ACCESS_TOKEN = 'accessToken'
+export const REFRESH_TOKEN = 'refreshToken'
 
 export function login(user) {
 	return function (dispatch) {
 		dispatch({ type: USER_LOGIN_REQUEST })
 		loginRequest(user)
 			.then(res => {
-				setCookie('accessToken', res.accessToken.split('Bearer ')[1])
-				setCookie('refreshToken', res.refreshToken)
+				setCookie(ACCESS_TOKEN, res.accessToken.split('Bearer ')[1])
+				setCookie(REFRESH_TOKEN, res.refreshToken)
 				dispatch({
 					type: USER_LOGIN_SUCCESS,
 					payload: res,
@@ -66,8 +64,8 @@ export function logout() {
 		logoutRequest()
 			.then(() => {
 				dispatch({ type: USER_LOGOUT_SUCCESS })
-				deleteCookie('accessToken')
-				deleteCookie('refreshToken')
+				deleteCookie(ACCESS_TOKEN)
+				deleteCookie(REFRESH_TOKEN)
 			})
 			.catch(() => {
 				dispatch({ type: USER_LOGOUT_FAILED })
@@ -87,26 +85,6 @@ export function getUserData() {
 			})
 			.catch(() => {
 				dispatch({ type: USER_DATA_FAILED })
-				dispatch(refreshToken())
-			})
-	}
-}
-
-export function refreshToken() {
-	return function (dispatch) {
-		dispatch({ type: REFRESH_ACCESS_TOKEN_REQUEST })
-		resetTokenRequest()
-			.then(res => {
-				dispatch({
-					type: REFRESH_ACCESS_TOKEN_SUCCESS,
-					payload: res,
-				})
-				setCookie('accessToken', res.accessToken.split('Bearer ')[1])
-				setCookie('refreshToken', res.refreshToken)
-				dispatch(getUserData())
-			})
-			.catch(() => {
-				dispatch({ type: REFRESH_ACCESS_TOKEN_FAILED })
 			})
 	}
 }

@@ -3,30 +3,28 @@ import {
 	EmailInput,
 	PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components'
-import { useCallback, useState } from 'react'
+import { useCallback } from 'react'
 import { useDispatch } from 'react-redux'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { FORGOT_PASSWORD, MAIN, REGISTER } from '.'
+import { useForm } from '../hooks/use-form'
 import { login } from '../services/actions/user'
 import styles from './pages.module.css'
 
 const LoginPage = () => {
 	const dispatch = useDispatch()
-	const [user, setUser] = useState({ email: '', password: '' })
+	const { values, handleChange } = useForm({ email: '', password: '' })
 	const location = useLocation()
 	const from = location.state?.from || MAIN
 	const navigate = useNavigate()
 
-	const handleChange = e => {
-		setUser({ ...user, [e.target.name]: e.target.value })
-	}
 	const handleSubmit = useCallback(
 		e => {
 			e.preventDefault()
-			dispatch(login(user))
+			dispatch(login(values))
 			navigate(from, { replace: true, state: { from: location.pathname } })
 		},
-		[dispatch, user]
+		[dispatch, values]
 	)
 
 	return (
@@ -34,13 +32,13 @@ const LoginPage = () => {
 			<h2 className={`${styles.title} text text_type_main-medium`}>Вход</h2>
 			<form className={styles.form} name='login' onSubmit={handleSubmit}>
 				<EmailInput
-					value={user.email}
+					value={values.email}
 					onChange={handleChange}
 					name='email'
 					autoComplete='on'
 				/>
 				<PasswordInput
-					value={user.password}
+					value={values.password}
 					onChange={handleChange}
 					name='password'
 				/>

@@ -1,23 +1,22 @@
-import classNames from "classnames"
 import { useDispatch, useSelector } from 'react-redux'
 import { MOVE_FILLING } from '../../services/actions/burger-constructor'
-import styles from "./burger-constructor.module.css"
-import FillingItem from "./filling-item.jsx"
+import { getBurger } from '../../utils/selectors.js'
+import styles from './burger-constructor.module.css'
+import FillingItem from './filling-item.jsx'
 
 const FillingList = () => {
+	const { fillings } = useSelector(getBurger)
+	const dispatch = useDispatch()
 
-	const { fillings } = useSelector(state=>state.burgerConstructor.burger);
-	const dispatch = useDispatch();
-	
 	const handleMove = (dragIndex, hoverIndex) => {
 		dispatch({
 			type: MOVE_FILLING,
 			dragIndex: dragIndex,
-			hoverIndex: hoverIndex
+			hoverIndex: hoverIndex,
 		})
 	}
 	return (
-		<ul className={classNames(styles.list, "custom-scroll mt-4 mb-4 pl-4 pr-1")}>
+		<ul className={`${styles.list} custom-scroll mt-4 mb-4 pl-4 pr-1`}>
 			{fillings.map((fillingItem, index) => {
 				return (
 					<FillingItem
@@ -32,7 +31,7 @@ const FillingList = () => {
 				)
 			})}
 		</ul>
-	);
-};
+	)
+}
 
-export default FillingList;
+export default FillingList

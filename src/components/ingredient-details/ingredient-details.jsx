@@ -1,27 +1,35 @@
-import classNames from "classnames"
-import PropTypes from "prop-types"
-import { IngredientPropType } from "../../utils/prop-types.js"
+import { useSelector } from 'react-redux'
+import { useParams } from 'react-router'
+import { getIngredientById } from '../../services/actions/burger-ingredients'
 import EnergyValues from './energy-values/energy-values'
-import styles from "./ingredient-details.module.css"
+import styles from './ingredient-details.module.css'
 
-const IngredientDetails = ({ ingredient }) => {
-  return (
-    <>
-      <img
-        className={styles.image}
-        src={ingredient.image_large}
-        alt={ingredient.name}
-      />
-      <h2 className={classNames("text text_type_main-medium mt-4 mb-8", styles.ingredient_name)}>
-        {ingredient.name}
-      </h2>
-      <EnergyValues {...ingredient} />
-    </>
-  );
-};
+const IngredientDetails = () => {
+	const { id } = useParams()
 
-IngredientDetails.propTypes = {
-	ingredient: PropTypes.shape(IngredientPropType).isRequired,
-};
+	const ingredient = useSelector(getIngredientById(id))
 
-export default IngredientDetails;
+	if (!ingredient) {
+		return <div>Ingredient not found</div>
+	}
+	return (
+		<>
+			<img
+				className={styles.image}
+				src={ingredient.image_large}
+				alt={ingredient.name}
+			/>
+			<h2
+				className={`
+					text text_type_main-medium mt-4 mb-8
+					${styles.ingredient_name}
+				`}
+			>
+				{ingredient.name}
+			</h2>
+			<EnergyValues {...ingredient} />
+		</>
+	)
+}
+
+export default IngredientDetails

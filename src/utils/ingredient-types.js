@@ -1,5 +1,5 @@
 export const Types = {
-	MAIN: "main",
-	SOUSE: "sauce",
-	BUN: "bun"
-};
+	MAIN: 'main',
+	SOUSE: 'sauce',
+	BUN: 'bun',
+}

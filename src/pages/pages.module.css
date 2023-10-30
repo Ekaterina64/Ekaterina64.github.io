@@ -1,0 +1,29 @@
+.page {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 0;
+	width: 480px;
+	margin: 180px auto 0;
+}
+
+.title {
+	margin: 0;
+}
+
+.form {
+	display: grid;
+	gap: 24px;
+	padding: 24px 0 80px 0;
+	justify-items: center;
+}
+
+.text {
+	margin: 0;
+	color: var(--text-dark-grey-secondary-text, #8585ad);
+}
+
+.link {
+	text-decoration: none;
+	color: var(--interface-accent, #4c4cff);
+}

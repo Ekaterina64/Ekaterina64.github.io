@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { TIngredient } from '../../types/types'
+import { TIngredient } from '../../types/data'
 import BurgerIngredient from './burger-ingredient'
 import styles from './burger-ingredients.module.css'
 

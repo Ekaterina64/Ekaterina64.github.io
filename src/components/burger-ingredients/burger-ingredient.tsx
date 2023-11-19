@@ -8,7 +8,7 @@ import { useDrag } from 'react-dnd'
 import { useSelector } from 'react-redux'
 import { useLocation } from 'react-router'
 import { Link } from 'react-router-dom'
-import { TIngredient } from '../../types/types'
+import { TIngredient } from '../../types/data'
 import { getBurger } from '../../utils/selectors'
 import styles from './burger-ingredients.module.css'
 

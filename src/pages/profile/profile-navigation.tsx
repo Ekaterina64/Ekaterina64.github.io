@@ -3,16 +3,16 @@ import { NavLink } from 'react-router-dom'
 import { logout } from '../../services/actions/user'
 
 import { SyntheticEvent } from 'react'
-import { useDispatch } from 'react-redux'
 import { LOGIN, PROFILE } from '..'
+import { useAppDispatch } from '../../types/hooks'
 import styles from './profile.module.css'
 
 const ProfileNavigation = () => {
-	const dispatch = useDispatch()
+	const dispatch = useAppDispatch()
 
 	const handleLogout = (e: SyntheticEvent) => {
 		e.preventDefault()
-		dispatch<any>(logout())
+		dispatch(logout())
 	}
 
 	return (

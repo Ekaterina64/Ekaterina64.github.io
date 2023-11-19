@@ -7,14 +7,14 @@ import {
 	Input,
 	PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components'
-import { useDispatch, useSelector } from 'react-redux'
 import { useForm } from '../../hooks/use-form'
+import { useAppDispatch, useAppSelector } from '../../types/hooks'
 import { getUser } from '../../utils/selectors'
 import styles from './profile.module.css'
 
 const ProfileForm = () => {
-	const dispatch = useDispatch()
-	const userCurrentData = useSelector(getUser)
+	const dispatch = useAppDispatch()
+	const userCurrentData = useAppSelector(getUser)
 	const { values, handleChange, setValues } = useForm({
 		name: '',
 		email: '',
@@ -35,15 +35,21 @@ const ProfileForm = () => {
 	const handleCancel = () => {
 		setValues({
 			...values,
-			email: userCurrentData.email,
-			name: userCurrentData.name,
+			email: userCurrentData?.email,
+			name: userCurrentData?.name,
 			password: '',
 		})
 	}
 
 	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
-		dispatch<any>(updateUser(values.name, values.email, values.password))
+		dispatch(
+			updateUser(
+				values.name as string,
+				values.email as string,
+				values.password as string
+			)
+		)
 	}
 	return (
 		<form className={styles.form} onSubmit={handleSubmit} name='profile'>

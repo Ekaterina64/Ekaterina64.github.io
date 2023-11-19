@@ -3,23 +3,23 @@ import {
 	EmailInput,
 } from '@ya.praktikum/react-developer-burger-ui-components'
 import { FormEvent, useCallback } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { Link, Navigate } from 'react-router-dom'
 import { LOGIN, RESET_PASSWORD } from '.'
 import { useForm } from '../hooks/use-form'
 import { forgotPassword } from '../services/actions/user'
+import { useAppDispatch, useAppSelector } from '../types/hooks'
 import { getForgotPasswordSuccess } from '../utils/selectors'
 import styles from './pages.module.css'
 
 const ForgotPasswordPage = () => {
 	const { values, handleChange } = useForm({ email: '' })
-	const dispatch = useDispatch()
-	const forgotPasswordSuccess = useSelector(getForgotPasswordSuccess)
+	const dispatch = useAppDispatch()
+	const forgotPasswordSuccess = useAppSelector(getForgotPasswordSuccess)
 
 	const handleSubmit = useCallback(
 		(e: FormEvent<HTMLFormElement>) => {
 			e.preventDefault()
-			dispatch<any>(forgotPassword(values.email))
+			dispatch(forgotPassword(values.email as string))
 		},
 		[dispatch, values.email]
 	)

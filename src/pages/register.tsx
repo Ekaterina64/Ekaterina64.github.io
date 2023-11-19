@@ -5,11 +5,12 @@ import {
 	PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components'
 import { FormEvent } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { Link, Navigate } from 'react-router-dom'
 import { LOGIN, MAIN } from '.'
 import { useForm } from '../hooks/use-form'
 import { register } from '../services/actions/user'
+import { TRegisterUser } from '../types/data'
+import { useAppDispatch, useAppSelector } from '../types/hooks'
 import { getIsAuthenticated } from '../utils/selectors'
 import styles from './pages.module.css'
 
@@ -19,12 +20,12 @@ const RegisterPage = () => {
 		email: '',
 		password: '',
 	})
-	const dispatch = useDispatch()
-	const isAuthenticated = useSelector(getIsAuthenticated)
+	const dispatch = useAppDispatch()
+	const isAuthenticated = useAppSelector(getIsAuthenticated)
 
 	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
-		dispatch<any>(register(values))
+		dispatch(register(values as TRegisterUser))
 	}
 
 	if (isAuthenticated) {

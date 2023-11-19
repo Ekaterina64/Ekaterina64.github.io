@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { TIngredient } from '../types/types'
+import { TIngredient } from '../types/data'
 import { Types } from '../utils/ingredient-types'
 
 export const useFilter = (data: TIngredient[]) => {

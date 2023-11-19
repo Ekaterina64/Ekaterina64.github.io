@@ -20,9 +20,46 @@ import {
 	USER_LOGOUT_FAILED,
 	USER_LOGOUT_REQUEST,
 	USER_LOGOUT_SUCCESS,
-} from '../actions/user.js'
+} from '../constants'
 
-const initialState = {
+import { TUser } from '../../types/data'
+import { TUserActions } from '../actions/user'
+
+type TUserState = {
+	loginRequest: boolean
+	loginFailed: boolean
+
+	logoutRequest: boolean
+	logoutFailed: boolean
+
+	userDataLoaded: boolean
+	userDataRequest: boolean
+	userDataFailed: boolean
+
+	accessTokenRequest: boolean
+	accessTokenFailed: boolean
+
+	registerRequest: boolean
+	registerFailed: boolean
+
+	forgotPasswordRequest: boolean
+	forgotPasswordFailed: boolean
+	forgotPasswordSuccess: boolean
+
+	resetPasswordRequest: boolean
+	resetPasswordFailed: boolean
+	resetPasswordSuccess: boolean
+
+	updateUserRequest: boolean
+	updateUserFailed: boolean
+
+	isAuthenticated: boolean
+	user: TUser | null
+	accessToken: string
+	refreshToken: string
+}
+
+const initialState: TUserState = {
 	loginRequest: false,
 	loginFailed: false,
 
@@ -56,7 +93,7 @@ const initialState = {
 	refreshToken: '',
 }
 
-export const userReducer = (state = initialState, action) => {
+export const userReducer = (state = initialState, action: TUserActions) => {
 	switch (action.type) {
 		case USER_LOGIN_REQUEST:
 			return { ...state, loginRequest: true }

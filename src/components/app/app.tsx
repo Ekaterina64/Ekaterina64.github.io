@@ -1,5 +1,4 @@
 import { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import {
 	Location,
 	Route,
@@ -24,9 +23,11 @@ import {
 	RegisterPage,
 	ResetPasswordPage,
 } from '../../pages'
+import { useAppDispatch, useAppSelector } from '../../types/hooks'
 
 import { getIngredients } from '../../services/actions/burger-ingredients'
-import { ACCESS_TOKEN, getUserData } from '../../services/actions/user'
+import { getUserData } from '../../services/actions/user'
+import { ACCESS_TOKEN } from '../../services/constants'
 import { getCookie } from '../../utils/cookies'
 import { getForgotPasswordSuccess, getUser } from '../../utils/selectors'
 import AppHeader from '../app-header/app-header'
@@ -38,21 +39,21 @@ import {
 } from '../protected-route'
 
 const App = () => {
-	const dispatch = useDispatch()
+	const dispatch = useAppDispatch()
 	const navigate = useNavigate()
 
 	const location = useLocation()
 	const locationState = location.state as { backgroundLocation: Location }
 	const background = locationState && locationState.backgroundLocation
 
-	const forgotPasswordSuccess = useSelector(getForgotPasswordSuccess)
-	const user = useSelector(getUser)
+	const forgotPasswordSuccess = useAppSelector(getForgotPasswordSuccess)
+	const user = useAppSelector(getUser)
 	const access = getCookie(ACCESS_TOKEN)
 
 	useEffect(() => {
-		dispatch<any>(getIngredients())
+		dispatch(getIngredients())
 		if (access) {
-			dispatch<any>(getUserData())
+			dispatch(getUserData())
 		}
 	}, [dispatch, access])
 
@@ -107,7 +108,7 @@ const App = () => {
 					element={
 						<ProtectedRouteAuthElement
 							element={<ProfilePage />}
-							allowed={user || access}
+							allowed={!!user || !!access}
 						/>
 					}
 				/>

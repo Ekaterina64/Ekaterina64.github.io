@@ -1,4 +1,6 @@
-export const totalPriceSelector = (state: any): number => {
+import { RootState } from '../../services/store'
+
+export const totalPriceSelector = (state: RootState): number => {
 	const {
 		burgerConstructor: { burger },
 	} = state

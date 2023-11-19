@@ -7,7 +7,7 @@ import styles from './ingredient-details.module.css'
 const IngredientDetails = () => {
 	const { id } = useParams()
 
-	const ingredient = useSelector(getIngredientById(id))
+	const ingredient = useSelector(getIngredientById(id as string))
 
 	if (!ingredient) {
 		return <div>Ingredient not found</div>

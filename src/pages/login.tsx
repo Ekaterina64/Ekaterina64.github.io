@@ -4,15 +4,16 @@ import {
 	PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components'
 import { FormEvent, useCallback } from 'react'
-import { useDispatch } from 'react-redux'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { FORGOT_PASSWORD, MAIN, REGISTER } from '.'
 import { useForm } from '../hooks/use-form'
 import { login } from '../services/actions/user'
+import { TLoginUser } from '../types/data'
+import { useAppDispatch } from '../types/hooks'
 import styles from './pages.module.css'
 
 const LoginPage = () => {
-	const dispatch = useDispatch()
+	const dispatch = useAppDispatch()
 	const { values, handleChange } = useForm({ email: '', password: '' })
 	const location = useLocation()
 	const locationState = location.state as { from: Location }
@@ -22,7 +23,7 @@ const LoginPage = () => {
 	const handleSubmit = useCallback(
 		(e: FormEvent<HTMLFormElement>) => {
 			e.preventDefault()
-			dispatch<any>(login(values))
+			dispatch(login(values as TLoginUser))
 			navigate(from, { replace: true, state: { from: location.pathname } })
 		},
 		[dispatch, values]

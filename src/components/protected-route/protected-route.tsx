@@ -4,7 +4,7 @@ import { MAIN } from '../../pages'
 
 type TProtectedRouteProps = {
 	element: ReactElement
-	allowed: boolean | string | Object //object change
+	allowed: boolean
 }
 
 export const ProtectedRouteElement: FC<TProtectedRouteProps> = ({

@@ -5,8 +5,8 @@ import {
 import type { XYCoord } from 'dnd-core'
 import { FC, useRef } from 'react'
 import { useDrag, useDrop } from 'react-dnd'
-import { useDispatch } from 'react-redux'
-import { DELETE_FILLING } from '../../services/actions/burger-constructor'
+import { deleteFilling } from '../../services/actions/burger-constructor'
+import { useAppDispatch } from '../../types/hooks'
 import styles from './burger-constructor.module.css'
 
 type TFillingItemProps = {
@@ -32,13 +32,10 @@ const FillingItem: FC<TFillingItemProps> = ({
 	index,
 	moveFilling,
 }) => {
-	const dispatch = useDispatch()
+	const dispatch = useAppDispatch()
 
 	const onDelete = () => {
-		dispatch({
-			type: DELETE_FILLING,
-			id: id,
-		})
+		dispatch(deleteFilling(id))
 	}
 
 	const ref = useRef<HTMLLIElement>(null)

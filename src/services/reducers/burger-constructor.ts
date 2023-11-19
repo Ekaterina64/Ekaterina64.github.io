@@ -1,4 +1,6 @@
 import update from 'immutability-helper'
+import { TBurger, TOrder } from '../../types/data'
+import { TConstructorActions } from '../actions/burger-constructor'
 import {
 	ADD_BUN,
 	ADD_FILLING,
@@ -8,20 +10,30 @@ import {
 	GET_ORDER_REQUEST,
 	GET_ORDER_SUCCESS,
 	MOVE_FILLING,
-} from '../actions/burger-constructor.js'
+} from '../constants'
 
-const initialState = {
+export type TConstructorState = {
+	burger: TBurger
+	order: TOrder
+	orderRequest: boolean
+	orderFailed: boolean
+}
+
+const initialState: TConstructorState = {
 	burger: {
 		buns: [],
 		fillings: [],
 	},
 
 	order: null,
-	oderRequest: false,
+	orderRequest: false,
 	orderFailed: false,
 }
 
-export const constructorReducer = (state = initialState, action) => {
+export const constructorReducer = (
+	state = initialState,
+	action: TConstructorActions
+): TConstructorState => {
 	switch (action.type) {
 		case GET_ORDER_REQUEST: {
 			return {
@@ -33,7 +45,7 @@ export const constructorReducer = (state = initialState, action) => {
 			return {
 				...state,
 				orderFailed: false,
-				order: action.order,
+				order: action.payload,
 				orderRequest: false,
 			}
 		}

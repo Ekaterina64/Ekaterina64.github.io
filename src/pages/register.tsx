@@ -9,9 +9,9 @@ import { Link, Navigate } from 'react-router-dom'
 import { LOGIN, MAIN } from '.'
 import { useForm } from '../hooks/use-form'
 import { register } from '../services/actions/user'
+import { getIsAuthenticated } from '../services/selectors'
 import { TRegisterUser } from '../types/data'
 import { useAppDispatch, useAppSelector } from '../types/hooks'
-import { getIsAuthenticated } from '../utils/selectors'
 import styles from './pages.module.css'
 
 const RegisterPage = () => {

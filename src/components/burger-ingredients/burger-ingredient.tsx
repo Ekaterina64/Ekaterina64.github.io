@@ -8,8 +8,8 @@ import { useDrag } from 'react-dnd'
 import { useSelector } from 'react-redux'
 import { useLocation } from 'react-router'
 import { Link } from 'react-router-dom'
+import { getBurger } from '../../services/selectors'
 import { TIngredient } from '../../types/data'
-import { getBurger } from '../../utils/selectors'
 import styles from './burger-ingredients.module.css'
 
 type TBurgerIngredientProps = {
@@ -37,7 +37,7 @@ const BurgerIngredient: FC<TBurgerIngredientProps> = ({ item }) => {
 		<li className={styles.item}>
 			<Link
 				to={`/ingredients/${item._id}`}
-				state={{ backgroundLocation: location }}
+				state={{ ingredientBackground: location }}
 				className={styles.link}
 			>
 				<div ref={ref} style={{ opacity }}>

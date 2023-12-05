@@ -1,8 +1,8 @@
 import { useSelector } from 'react-redux'
 import IngredientDetails from '../../components/ingredient-details/ingredient-details'
 
+import { getBurgerIngredients } from '../../services/selectors'
 import { Loader } from '../../ui/loader/loader'
-import { getBurgerIngredients } from '../../utils/selectors'
 import styles from './ingredient.module.css'
 
 const IngredientPage = () => {

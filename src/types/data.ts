@@ -20,6 +20,16 @@ export type TOrder = {
 	order: { number: number }
 } | null
 
+export type TOrderData = {
+	_id: string
+	ingredients: Array<string>
+	status: string
+	name: string
+	createdAt: string | number | Date
+	updatedAt: string
+	number: number
+}
+
 export type TBurger = {
 	buns: Array<TIngredient>
 	fillings: Array<TBurgerIngredient>
@@ -64,3 +74,5 @@ export type TAuthResponse = TServerResponse<{
 }>
 
 export type TMessageResponse = TServerResponse<{ message: string }>
+
+export type TUserOrderResponse = TServerResponse<{ orders: Array<TOrderData> }>

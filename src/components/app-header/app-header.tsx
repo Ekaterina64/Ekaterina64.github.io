@@ -7,7 +7,7 @@ import {
 import { useSelector } from 'react-redux'
 import { Link, useLocation } from 'react-router-dom'
 import { FEED, MAIN, PROFILE } from '../../pages'
-import { getUser } from '../../utils/selectors'
+import { getUser } from '../../services/selectors'
 import styles from './app-header.module.css'
 import HeaderLink from './header-link'
 

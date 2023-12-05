@@ -8,8 +8,8 @@ import {
 	PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components'
 import { useForm } from '../../hooks/use-form'
+import { getUser } from '../../services/selectors'
 import { useAppDispatch, useAppSelector } from '../../types/hooks'
-import { getUser } from '../../utils/selectors'
 import styles from './profile.module.css'
 
 const ProfileForm = () => {

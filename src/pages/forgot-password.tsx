@@ -7,8 +7,8 @@ import { Link, Navigate } from 'react-router-dom'
 import { LOGIN, RESET_PASSWORD } from '.'
 import { useForm } from '../hooks/use-form'
 import { forgotPassword } from '../services/actions/user'
+import { getForgotPasswordSuccess } from '../services/selectors'
 import { useAppDispatch, useAppSelector } from '../types/hooks'
-import { getForgotPasswordSuccess } from '../utils/selectors'
 import styles from './pages.module.css'
 
 const ForgotPasswordPage = () => {

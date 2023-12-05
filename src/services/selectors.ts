@@ -1,4 +1,4 @@
-import { RootState } from '../services/store'
+import { RootState } from './store'
 
 export const getBurger = (state: RootState) => state.burgerConstructor.burger
 export const getBurgerConstructor = (state: RootState) =>
@@ -14,3 +14,9 @@ export const getResetPasswordSuccess = (state: RootState) =>
 export const getIsAuthenticated = (state: RootState) =>
 	state.user.isAuthenticated
 export const getUser = (state: RootState) => state.user.user
+
+export const getFeeds = (state: RootState) => state.feeds.orders
+export const getOrdersData = (state: RootState) => state.feeds
+export const getOrders = (state: RootState) => state.userOrders.orders
+export const getSelectedOrder = (store: RootState) =>
+	store.burgerConstructor.selectedOrder

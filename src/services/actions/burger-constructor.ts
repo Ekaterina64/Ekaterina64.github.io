@@ -2,9 +2,11 @@ import {
 	TBurgerIngredient,
 	TIngredient,
 	TOrder,
+	TOrderData,
 	TOrderResponse,
+	TUserOrderResponse,
 } from '../../types/data'
-import { getOrderRequest } from '../../utils/requests'
+import { getOrderRequest, getUserOrderRequest } from '../../utils/requests'
 import {
 	ADD_BUN,
 	ADD_FILLING,
@@ -13,6 +15,9 @@ import {
 	GET_ORDER_FAILED,
 	GET_ORDER_REQUEST,
 	GET_ORDER_SUCCESS,
+	GET_USER_ORDER_FAILED,
+	GET_USER_ORDER_REQUEST,
+	GET_USER_ORDER_SUCCESS,
 	MOVE_FILLING,
 } from '../constants'
 import { AppDispatch } from '../store'
@@ -28,6 +33,19 @@ interface IGetOrderFailed {
 interface IGetOrderSuccess {
 	readonly type: typeof GET_ORDER_SUCCESS
 	readonly payload: TOrder
+}
+
+interface IGetUserOrderRequest {
+	readonly type: typeof GET_USER_ORDER_REQUEST
+}
+
+interface IGetUserOrderFailed {
+	readonly type: typeof GET_USER_ORDER_FAILED
+}
+
+interface IGetUserOrderSuccess {
+	readonly type: typeof GET_USER_ORDER_SUCCESS
+	readonly payload: TOrderData
 }
 
 interface ICloseInfo {
@@ -59,6 +77,9 @@ export type TConstructorActions =
 	| IGetOrderRequest
 	| IGetOrderFailed
 	| IGetOrderSuccess
+	| IGetUserOrderSuccess
+	| IGetUserOrderRequest
+	| IGetUserOrderFailed
 	| ICloseInfo
 	| IAddBun
 	| IAddFilling
@@ -74,6 +95,21 @@ const getOrderFailed = (): IGetOrderFailed => ({
 const getOrderSuccess = (res: TOrderResponse): IGetOrderSuccess => ({
 	type: GET_ORDER_SUCCESS,
 	payload: { name: res.name, order: res.order },
+})
+
+const getUserOrderReq = (): IGetUserOrderRequest => ({
+	type: GET_USER_ORDER_REQUEST,
+})
+
+const getUserOrderFailed = (): IGetUserOrderFailed => ({
+	type: GET_USER_ORDER_FAILED,
+})
+
+const getUserOrderSuccess = (
+	res: TUserOrderResponse
+): IGetUserOrderSuccess => ({
+	type: GET_USER_ORDER_SUCCESS,
+	payload: res.orders[0],
 })
 
 export const closeInfo = (): ICloseInfo => ({
@@ -110,5 +146,14 @@ export function getOrder(ids: Array<string>) {
 		getOrderRequest(ids)
 			.then(res => dispatch(getOrderSuccess(res)))
 			.catch(() => dispatch(getOrderFailed()))
+	}
+}
+
+export function getUserOrderByNumber(number?: string) {
+	return function (dispatch: AppDispatch) {
+		dispatch(getUserOrderReq())
+		getUserOrderRequest(number)
+			.then(res => dispatch(getUserOrderSuccess(res)))
+			.catch(() => dispatch(getUserOrderFailed()))
 	}
 }

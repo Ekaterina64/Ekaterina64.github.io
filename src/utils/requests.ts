@@ -8,6 +8,7 @@ import {
 	TOrderResponse,
 	TRefreshResponse,
 	TRegisterUser,
+	TUserOrderResponse,
 	TUserResponse,
 } from '../types/data.js'
 import { request, requestWithRefresh } from './api'
@@ -23,10 +24,25 @@ export const getIngredientsRequest = async () => {
 }
 
 export const getOrderRequest = async (ingredientsIds: Array<string>) => {
-	return await request<TOrderResponse>('orders', {
-		body: JSON.stringify({ ingredients: ingredientsIds }),
+	return await requestWithRefresh<TOrderResponse>('orders', {
+		body: JSON.stringify({
+			ingredients: ingredientsIds,
+		}),
 		method: 'POST',
-		headers: requestConfig.headers,
+		headers: {
+			'Content-Type': 'application/json',
+			Authorization: 'Bearer ' + getCookie(ACCESS_TOKEN),
+		},
+	})
+}
+
+export const getUserOrderRequest = async (number?: string) => {
+	return await requestWithRefresh<TUserOrderResponse>(`orders/${number}`, {
+		method: 'GET',
+		headers: {
+			'Content-Type': 'application/json',
+			Authorization: 'Bearer ' + getCookie(ACCESS_TOKEN),
+		},
 	})
 }
 

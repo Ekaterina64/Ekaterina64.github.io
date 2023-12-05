@@ -1,7 +1,7 @@
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components'
 import { FC } from 'react'
 import { useSelector } from 'react-redux'
-import { getBurger } from '../../utils/selectors'
+import { getBurger } from '../../services/selectors'
 import styles from './burger-constructor.module.css'
 
 type TBunProps = { type: 'top' | 'bottom' | undefined }

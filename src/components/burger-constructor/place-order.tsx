@@ -6,14 +6,11 @@ import {
 import { memo, useCallback, useMemo } from 'react'
 import { useNavigate } from 'react-router'
 import { LOGIN } from '../../pages/index'
-import {
-	closeInfo,
-	getOrder,
-} from '../../services/actions/burger-constructor.js'
+import { closeInfo, getOrder } from '../../services/actions/burger-constructor'
+import { getBurgerConstructor, getUser } from '../../services/selectors'
 import { useAppDispatch, useAppSelector } from '../../types/hooks'
-import { getBurgerConstructor, getUser } from '../../utils/selectors'
+import Booking from '../booking/booking'
 import Modal from '../modal/modal'
-import OrderDetails from '../order-details/order-details'
 import styles from './burger-constructor.module.css'
 import { totalPriceSelector } from './utils'
 
@@ -23,7 +20,6 @@ const PlaceOrder = memo(() => {
 	const { order, orderRequest, burger } = useAppSelector(getBurgerConstructor)
 	const user = useAppSelector(getUser)
 	const navigate = useNavigate()
-
 	const totalCost = useAppSelector(totalPriceSelector)
 
 	const ingredientsIds: string[] = useMemo(
@@ -57,8 +53,8 @@ const PlaceOrder = memo(() => {
 				{orderRequest ? 'Отправляем...' : 'Оформить заказ'}
 			</Button>
 			{order && (
-				<Modal title='' onClose={handleClose}>
-					<OrderDetails orderNumber={order.order.number} />
+				<Modal title='' titleSize='main-large' onClose={handleClose}>
+					<Booking orderNumber={order.order.number} />
 				</Modal>
 			)}
 		</div>

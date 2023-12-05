@@ -1,7 +1,7 @@
 import { moveFilling } from '../../services/actions/burger-constructor'
+import { getBurger } from '../../services/selectors'
 import { TBurgerIngredient } from '../../types/data'
 import { useAppDispatch, useAppSelector } from '../../types/hooks'
-import { getBurger } from '../../utils/selectors'
 import styles from './burger-constructor.module.css'
 import FillingItem from './filling-item'
 

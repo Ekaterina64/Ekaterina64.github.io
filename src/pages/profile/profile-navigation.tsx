@@ -1,9 +1,9 @@
-import { NavLink } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
 
 import { logout } from '../../services/actions/user'
 
 import { SyntheticEvent } from 'react'
-import { LOGIN, PROFILE } from '..'
+import { LOGIN, PROFILE, PROFILE_ORDERS } from '..'
 import { useAppDispatch } from '../../types/hooks'
 import styles from './profile.module.css'
 
@@ -15,27 +15,23 @@ const ProfileNavigation = () => {
 		dispatch(logout())
 	}
 
+	const location = useLocation()
+	const type = (path: string) =>
+		path === location.pathname ? styles.active : 'text_color_inactive'
+
 	return (
 		<nav className={`${styles.sidebar} mr-15`}>
 			<NavLink
 				to={PROFILE}
 				className={`${styles.link} text text_type_main-medium`}
 			>
-				{({ isActive }) => (
-					<p className={isActive ? styles.active : 'text_color_inactive'}>
-						Профиль
-					</p>
-				)}
+				<p className={type(PROFILE)}>Профиль</p>
 			</NavLink>
 			<NavLink
-				to='/profile/orders'
+				to={PROFILE_ORDERS}
 				className={`${styles.link} text text_type_main-medium`}
 			>
-				{({ isActive }) => (
-					<p className={isActive ? styles.active : 'text_color_inactive'}>
-						История заказов
-					</p>
-				)}
+				<p className={type(PROFILE_ORDERS)}>История заказов</p>
 			</NavLink>
 			<NavLink
 				to={LOGIN}

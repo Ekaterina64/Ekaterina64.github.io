@@ -1,5 +1,4 @@
 import { getOrdersData } from '../../services/selectors'
-import { TOrderData } from '../../types/data'
 import { useAppSelector } from '../../types/hooks'
 
 import styles from './order.module.css'
@@ -15,8 +14,8 @@ const Statistic = () => {
 					<div className={styles.numbers}>
 						{orders
 							?.slice(0, 30)
-							.filter((item: TOrderData) => item.status === 'done')
-							.map((item: TOrderData) => (
+							.filter(item => item.status === 'done')
+							.map(item => (
 								<p
 									key={item.number}
 									className={`${styles.doneNumber} text text_type_digits-default mb-2`}
@@ -31,8 +30,8 @@ const Statistic = () => {
 					<div className={styles.numbers}>
 						{orders
 							?.slice(0, 20)
-							.filter((item: TOrderData) => item.status === 'pending')
-							.map((item: TOrderData) => (
+							.filter(item => item.status === 'pending')
+							.map(item => (
 								<p
 									key={item.number}
 									className='text text_type_digits-default mb-2'

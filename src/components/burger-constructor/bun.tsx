@@ -1,13 +1,13 @@
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components'
 import { FC } from 'react'
-import { useSelector } from 'react-redux'
 import { getBurger } from '../../services/selectors'
+import { useAppSelector } from '../../types/hooks'
 import styles from './burger-constructor.module.css'
 
 type TBunProps = { type: 'top' | 'bottom' | undefined }
 
 const Bun: FC<Readonly<TBunProps>> = ({ type }) => {
-	const { buns } = useSelector(getBurger)
+	const { buns } = useAppSelector(getBurger)
 
 	return (
 		<>

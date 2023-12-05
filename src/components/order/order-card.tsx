@@ -32,15 +32,16 @@ const OrderCard: FC<TOrderCard> = ({ order }) => {
 					</p>
 				</div>
 				<p className='text text_type_main-medium mb-2 mt-6'>{name}</p>
-				{matchProfile && status === 'done' ? (
-					<p className='text text_type_main-default text_color_success mb-6'>
-						{statusRus}
-					</p>
-				) : (
-					<p className='text text_type_main-default text_color_primary mb-6'>
-						{statusRus}
-					</p>
-				)}
+				{matchProfile &&
+					(status === 'done' ? (
+						<p className='text text_type_main-default text_color_success mb-6'>
+							{statusRus}
+						</p>
+					) : (
+						<p className='text text_type_main-default text_color_primary mb-6'>
+							{statusRus}
+						</p>
+					))}
 				<div className={styles.ingredients_container}>
 					<OrderIngredients ingredients={orderIngredients} />
 					<div className={styles.price}>

@@ -1,7 +1,7 @@
-import { useSelector } from 'react-redux'
 import { useFilter } from '../../hooks/use-filter'
 import { useTabs } from '../../hooks/use-tab'
 import { getBurgerIngredients } from '../../services/selectors'
+import { useAppSelector } from '../../types/hooks'
 import { Loader } from '../../ui/loader/loader'
 import { Types } from '../../utils/ingredient-types'
 import styles from './burger-ingredients.module.css'
@@ -10,7 +10,7 @@ import TabContainer from './tab-container'
 
 const BurgerIngredients = () => {
 	const { ingredients, ingredientsRequest, ingredientsFailed } =
-		useSelector(getBurgerIngredients)
+		useAppSelector(getBurgerIngredients)
 
 	const { currentTab, bunsRef, sousesRef, mainRef, onTabClick } = useTabs()
 

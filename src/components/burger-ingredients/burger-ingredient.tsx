@@ -5,11 +5,11 @@ import {
 
 import { FC, useMemo } from 'react'
 import { useDrag } from 'react-dnd'
-import { useSelector } from 'react-redux'
 import { useLocation } from 'react-router'
 import { Link } from 'react-router-dom'
 import { getBurger } from '../../services/selectors'
 import { TIngredient } from '../../types/data'
+import { useAppSelector } from '../../types/hooks'
 import styles from './burger-ingredients.module.css'
 
 type TBurgerIngredientProps = {
@@ -26,7 +26,7 @@ const BurgerIngredient: FC<TBurgerIngredientProps> = ({ item }) => {
 		}),
 	})
 
-	const { buns, fillings } = useSelector(getBurger)
+	const { buns, fillings } = useAppSelector(getBurger)
 
 	const count = useMemo(() => {
 		const ingredients = [...buns, ...fillings]

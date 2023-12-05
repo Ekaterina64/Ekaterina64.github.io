@@ -12,7 +12,7 @@ export const useOrder = (order?: TOrderData) => {
 	const getOrderList = () => {
 		const elements: Array<TIngredient> = []
 		order?.ingredients.forEach(ingredientId => {
-			allIngredients.forEach((ingredient: TIngredient) => {
+			allIngredients.forEach(ingredient => {
 				if (ingredient._id === ingredientId) {
 					elements.push(ingredient)
 				}

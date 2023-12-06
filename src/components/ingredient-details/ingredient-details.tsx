@@ -1,13 +1,13 @@
-import { useSelector } from 'react-redux'
 import { useParams } from 'react-router'
 import { getIngredientById } from '../../services/actions/burger-ingredients'
+import { useAppSelector } from '../../types/hooks'
 import EnergyValues from './energy-values/energy-values'
 import styles from './ingredient-details.module.css'
 
 const IngredientDetails = () => {
 	const { id } = useParams()
 
-	const ingredient = useSelector(getIngredientById(id))
+	const ingredient = useAppSelector(getIngredientById(id as string))
 
 	if (!ingredient) {
 		return <div>Ingredient not found</div>

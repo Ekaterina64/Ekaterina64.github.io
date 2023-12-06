@@ -1,4 +1,6 @@
 import update from 'immutability-helper'
+import { TBurger, TOrder, TOrderData } from '../../types/data'
+import { TConstructorActions } from '../actions/burger-constructor'
 import {
 	ADD_BUN,
 	ADD_FILLING,
@@ -7,21 +9,36 @@ import {
 	GET_ORDER_FAILED,
 	GET_ORDER_REQUEST,
 	GET_ORDER_SUCCESS,
+	GET_USER_ORDER_FAILED,
+	GET_USER_ORDER_REQUEST,
+	GET_USER_ORDER_SUCCESS,
 	MOVE_FILLING,
-} from '../actions/burger-constructor.js'
+} from '../constants'
 
-const initialState = {
+export type TConstructorState = {
+	burger: TBurger
+	order: TOrder
+	selectedOrder?: TOrderData
+	orderRequest: boolean
+	orderFailed: boolean
+}
+
+const initialState: TConstructorState = {
 	burger: {
 		buns: [],
 		fillings: [],
 	},
 
 	order: null,
-	oderRequest: false,
+	selectedOrder: undefined,
+	orderRequest: false,
 	orderFailed: false,
 }
 
-export const constructorReducer = (state = initialState, action) => {
+export const constructorReducer = (
+	state = initialState,
+	action: TConstructorActions
+): TConstructorState => {
 	switch (action.type) {
 		case GET_ORDER_REQUEST: {
 			return {
@@ -33,7 +50,7 @@ export const constructorReducer = (state = initialState, action) => {
 			return {
 				...state,
 				orderFailed: false,
-				order: action.order,
+				order: action.payload,
 				orderRequest: false,
 			}
 		}
@@ -45,10 +62,33 @@ export const constructorReducer = (state = initialState, action) => {
 				order: null,
 			}
 		}
+		case GET_USER_ORDER_REQUEST: {
+			return {
+				...state,
+				orderRequest: true,
+			}
+		}
+		case GET_USER_ORDER_SUCCESS: {
+			return {
+				...state,
+				orderFailed: false,
+				selectedOrder: action.payload,
+				orderRequest: false,
+			}
+		}
+		case GET_USER_ORDER_FAILED: {
+			return {
+				...state,
+				orderFailed: true,
+				orderRequest: false,
+				order: null,
+			}
+		}
 		case CLOSE_INFO: {
 			return {
 				...state,
 				order: null,
+				selectedOrder: undefined,
 				burger: { buns: [], fillings: [] },
 			}
 		}

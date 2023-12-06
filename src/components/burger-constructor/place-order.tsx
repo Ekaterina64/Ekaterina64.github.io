@@ -4,27 +4,23 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components'
 
 import { memo, useCallback, useMemo } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router'
 import { LOGIN } from '../../pages/index'
-import {
-	CLOSE_INFO,
-	getOrder,
-} from '../../services/actions/burger-constructor.js'
-import { getBurgerConstructor, getUser } from '../../utils/selectors'
+import { closeInfo, getOrder } from '../../services/actions/burger-constructor'
+import { getBurgerConstructor, getUser } from '../../services/selectors'
+import { useAppDispatch, useAppSelector } from '../../types/hooks'
+import Booking from '../booking/booking'
 import Modal from '../modal/modal'
-import OrderDetails from '../order-details/order-details'
 import styles from './burger-constructor.module.css'
 import { totalPriceSelector } from './utils'
 
 const PlaceOrder = memo(() => {
-	const dispatch = useDispatch()
+	const dispatch = useAppDispatch()
 
-	const { order, orderRequest, burger } = useSelector(getBurgerConstructor)
-	const user = useSelector(getUser)
+	const { order, orderRequest, burger } = useAppSelector(getBurgerConstructor)
+	const user = useAppSelector(getUser)
 	const navigate = useNavigate()
-
-	const totalCost = useSelector(totalPriceSelector)
+	const totalCost = useAppSelector(totalPriceSelector)
 
 	const ingredientsIds: string[] = useMemo(
 		() => [...burger.buns, ...burger.fillings].map(i => i._id),
@@ -34,12 +30,12 @@ const PlaceOrder = memo(() => {
 		if (!user) {
 			navigate(LOGIN)
 		} else {
-			dispatch<any>(getOrder(ingredientsIds))
+			dispatch(getOrder(ingredientsIds))
 		}
 	}
 
 	const handleClose = useCallback(() => {
-		dispatch({ type: CLOSE_INFO })
+		dispatch(closeInfo())
 	}, [])
 
 	return (
@@ -57,8 +53,8 @@ const PlaceOrder = memo(() => {
 				{orderRequest ? 'Отправляем...' : 'Оформить заказ'}
 			</Button>
 			{order && (
-				<Modal title='' onClose={handleClose}>
-					<OrderDetails orderNumber={order.number} />
+				<Modal title='' titleSize='main-large' onClose={handleClose}>
+					<Booking orderNumber={order.order.number} />
 				</Modal>
 			)}
 		</div>

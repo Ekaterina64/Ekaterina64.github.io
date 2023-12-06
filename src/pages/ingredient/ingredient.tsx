@@ -1,12 +1,12 @@
-import { useSelector } from 'react-redux'
 import IngredientDetails from '../../components/ingredient-details/ingredient-details'
 
+import { getBurgerIngredients } from '../../services/selectors'
+import { useAppSelector } from '../../types/hooks'
 import { Loader } from '../../ui/loader/loader'
-import { getBurgerIngredients } from '../../utils/selectors'
 import styles from './ingredient.module.css'
 
 const IngredientPage = () => {
-	const { ingredientsRequest } = useSelector(getBurgerIngredients)
+	const { ingredientsRequest } = useAppSelector(getBurgerIngredients)
 
 	if (ingredientsRequest) {
 		return <Loader size='large' />

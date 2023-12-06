@@ -4,7 +4,7 @@ import { LOGIN } from '../../pages'
 
 type TProtectedRouteAuthElement = {
 	element: ReactElement
-	allowed: boolean | string | Object //object change
+	allowed: boolean
 }
 export const ProtectedRouteAuthElement: FC<TProtectedRouteAuthElement> = ({
 	element,

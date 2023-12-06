@@ -1,54 +1,18 @@
-import { ACCESS_TOKEN, REFRESH_TOKEN } from '../services/actions/user.js'
-import { TIngredient } from '../types/types'
+import { ACCESS_TOKEN, REFRESH_TOKEN } from '../services/constants'
+import {
+	TAuthResponse,
+	TIngredientResponse,
+	TLoginUser,
+	TMessageResponse,
+	TNewPassword,
+	TOrderResponse,
+	TRefreshResponse,
+	TRegisterUser,
+	TUserOrderResponse,
+	TUserResponse,
+} from '../types/data.js'
 import { request, requestWithRefresh } from './api'
 import { getCookie } from './cookies'
-
-type TServerResponse<T> = {
-	success: boolean
-} & T
-
-type TRefreshResponse = TServerResponse<{
-	accessToken: string
-	refreshToken: string
-}>
-
-type TOrderResponse = TServerResponse<{
-	name: string
-	order: { number: number }
-}>
-
-type TIngredientResponse = TServerResponse<{ ingredients: Array<TIngredient> }>
-
-type TUser = {
-	email: string
-	name: string
-}
-
-type TLoginUser = {
-	email: string
-	password: string
-}
-
-type TNewPassword = {
-	password: string
-	token: string
-}
-
-type TUserResponse = TServerResponse<{ user: TUser }>
-
-type TRegisterResponse = TServerResponse<{
-	user: TUser
-	accessToken: string
-	refreshToken: string
-}>
-
-type TLoginResponse = TServerResponse<{
-	accessToken: string
-	refreshToken: string
-	user: TUser
-}>
-
-type TMessageResponse = TServerResponse<{ message: string }>
 
 const requestConfig = {
 	headers: { 'Content-Type': 'application/json' },
@@ -60,18 +24,31 @@ export const getIngredientsRequest = async () => {
 }
 
 export const getOrderRequest = async (ingredientsIds: Array<string>) => {
-	return await request<TOrderResponse>('orders', {
-		body: JSON.stringify({ ingredients: ingredientsIds }),
+	return await requestWithRefresh<TOrderResponse>('orders', {
+		body: JSON.stringify({
+			ingredients: ingredientsIds,
+		}),
 		method: 'POST',
-		headers: requestConfig.headers,
+		headers: {
+			'Content-Type': 'application/json',
+			Authorization: 'Bearer ' + getCookie(ACCESS_TOKEN),
+		},
+	})
+}
+
+export const getUserOrderRequest = async (number?: string) => {
+	return await requestWithRefresh<TUserOrderResponse>(`orders/${number}`, {
+		method: 'GET',
+		headers: {
+			'Content-Type': 'application/json',
+			Authorization: 'Bearer ' + getCookie(ACCESS_TOKEN),
+		},
 	})
 }
 
 //User
-export const postRegisterRequest = async (
-	user: TUser & { password: string }
-) => {
-	return await request<TRegisterResponse>('auth/register', {
+export const postRegisterRequest = async (user: TRegisterUser) => {
+	return await request<TAuthResponse>('auth/register', {
 		body: JSON.stringify({
 			email: user.email,
 			password: user.password,
@@ -83,7 +60,7 @@ export const postRegisterRequest = async (
 }
 
 export const loginRequest = async (user: TLoginUser) => {
-	return await request<TLoginResponse>('auth/login', {
+	return await request<TAuthResponse>('auth/login', {
 		body: JSON.stringify({
 			email: user.email,
 			password: user.password,
@@ -143,7 +120,7 @@ export const updateUserDataRequest = async (
 	email: string,
 	password: string
 ) => {
-	return await requestWithRefresh('auth/user', {
+	return await requestWithRefresh<TUserResponse>('auth/user', {
 		method: 'PATCH',
 		headers: {
 			'Content-Type': 'application/json',

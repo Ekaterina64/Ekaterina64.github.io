@@ -4,15 +4,15 @@ import {
 	Logo,
 	ProfileIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components'
-import { useSelector } from 'react-redux'
 import { Link, useLocation } from 'react-router-dom'
 import { FEED, MAIN, PROFILE } from '../../pages'
-import { getUser } from '../../utils/selectors'
+import { getUser } from '../../services/selectors'
+import { useAppSelector } from '../../types/hooks'
 import styles from './app-header.module.css'
 import HeaderLink from './header-link'
 
 const AppHeader = () => {
-	const user = useSelector(getUser)
+	const user = useAppSelector(getUser)
 	const location = useLocation()
 
 	const iconType = (path: string) =>

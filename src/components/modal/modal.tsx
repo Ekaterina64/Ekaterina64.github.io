@@ -8,7 +8,8 @@ const modalRoot = document.getElementById('modals') as HTMLDivElement
 
 type TModalProps = {
 	onClose: () => void
-	title: string
+	title?: string
+	titleSize: 'main-large' | 'digits-default'
 	children: ReactNode
 }
 
@@ -28,14 +29,14 @@ const Modal: FC<TModalProps> = props => {
 			<div className={styles.modal}>
 				<ModalOverlay onClose={props.onClose} />
 				<div className={styles.content}>
-					<h1
+					<p
 						className={`
-							text text_type_main-large pt-3 pb-3
+							text text_type_${props.titleSize} pt-3 pb-3
 							${styles.title}
 						`}
 					>
 						{props.title}
-					</h1>
+					</p>
 					<button className={styles.closeButton} onClick={props.onClose}>
 						<CloseIcon type='primary' />
 					</button>

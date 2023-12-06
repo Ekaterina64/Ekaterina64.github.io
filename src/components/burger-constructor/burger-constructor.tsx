@@ -1,17 +1,17 @@
 import { useDrop } from 'react-dnd'
-import { useDispatch, useSelector } from 'react-redux'
 import { v4 as uuidv4 } from 'uuid'
-import { ADD_BUN, ADD_FILLING } from '../../services/actions/burger-constructor'
-import { TIngredient } from '../../types/types'
+import { addBun, addFilling } from '../../services/actions/burger-constructor'
+import { getBurger } from '../../services/selectors'
+import { TBurgerIngredient, TIngredient } from '../../types/data'
+import { useAppDispatch, useAppSelector } from '../../types/hooks'
 import { Types } from '../../utils/ingredient-types'
-import { getBurger } from '../../utils/selectors'
 import Burger from './burger'
 import styles from './burger-constructor.module.css'
 import PlaceOrder from './place-order'
 
 const BurgerConstructor = () => {
-	const dispatch = useDispatch()
-	const burger = useSelector(getBurger)
+	const dispatch = useAppDispatch()
+	const burger = useAppSelector(getBurger)
 
 	const [{ canDrop }, dropTarget] = useDrop<
 		TIngredient,
@@ -27,17 +27,11 @@ const BurgerConstructor = () => {
 		},
 	})
 
-	const addIngredient = (item: TIngredient & { id: string }) => {
+	const addIngredient = (item: TBurgerIngredient) => {
 		if (item.type === Types.BUN) {
-			dispatch({
-				type: ADD_BUN,
-				bun: item,
-			})
+			dispatch(addBun(item))
 		} else {
-			dispatch({
-				type: ADD_FILLING,
-				filling: item,
-			})
+			dispatch(addFilling(item))
 		}
 	}
 	const className = `${styles.burgerConstructor}

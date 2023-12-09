@@ -86,26 +86,26 @@ export type TConstructorActions =
 	| IDeleteFilling
 	| IMoveFilling
 
-const getOrderReq = (): IGetOrderRequest => ({ type: GET_ORDER_REQUEST })
+export const getOrderReq = (): IGetOrderRequest => ({ type: GET_ORDER_REQUEST })
 
-const getOrderFailed = (): IGetOrderFailed => ({
+export const getOrderFailed = (): IGetOrderFailed => ({
 	type: GET_ORDER_FAILED,
 })
 
-const getOrderSuccess = (res: TOrderResponse): IGetOrderSuccess => ({
+export const getOrderSuccess = (res: TOrderResponse): IGetOrderSuccess => ({
 	type: GET_ORDER_SUCCESS,
 	payload: { name: res.name, order: res.order },
 })
 
-const getUserOrderReq = (): IGetUserOrderRequest => ({
+export const getUserOrderReq = (): IGetUserOrderRequest => ({
 	type: GET_USER_ORDER_REQUEST,
 })
 
-const getUserOrderFailed = (): IGetUserOrderFailed => ({
+export const getUserOrderFailed = (): IGetUserOrderFailed => ({
 	type: GET_USER_ORDER_FAILED,
 })
 
-const getUserOrderSuccess = (
+export const getUserOrderSuccess = (
 	res: TUserOrderResponse
 ): IGetUserOrderSuccess => ({
 	type: GET_USER_ORDER_SUCCESS,

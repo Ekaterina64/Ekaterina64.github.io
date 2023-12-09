@@ -154,90 +154,90 @@ export type TUserActions =
 	| IUpdateUserFailed
 	| IUpdateUserSuccess
 
-const userLoginReq = (): IUserLoginRequest => ({
+export const userLoginReq = (): IUserLoginRequest => ({
 	type: USER_LOGIN_REQUEST,
 })
 
-const userLoginFailed = (): IUserLoginFailed => ({
+export const userLoginFailed = (): IUserLoginFailed => ({
 	type: USER_LOGIN_FAILED,
 })
 
-const userLoginSuccess = (res: TAuthResponse): IUserLoginSuccess => ({
+export const userLoginSuccess = (res: TAuthResponse): IUserLoginSuccess => ({
 	type: USER_LOGIN_SUCCESS,
 	payload: res,
 })
 
-const userLogoutReq = (): IUserLogoutRequest => ({
+export const userLogoutReq = (): IUserLogoutRequest => ({
 	type: USER_LOGOUT_REQUEST,
 })
 
-const userLogoutFailed = (): IUserLogoutFailed => ({
+export const userLogoutFailed = (): IUserLogoutFailed => ({
 	type: USER_LOGOUT_FAILED,
 })
 
-const userLogoutSuccess = (): IUserLogoutSuccess => ({
+export const userLogoutSuccess = (): IUserLogoutSuccess => ({
 	type: USER_LOGOUT_SUCCESS,
 })
 
-const userDataReq = (): IUserDataRequest => ({
+export const userDataReq = (): IUserDataRequest => ({
 	type: USER_DATA_REQUEST,
 })
 
-const userDataFailed = (): IUserDataFailed => ({
+export const userDataFailed = (): IUserDataFailed => ({
 	type: USER_DATA_FAILED,
 })
 
-const userDataSuccess = (res: TUserResponse): IUserDataSuccess => ({
+export const userDataSuccess = (res: TUserResponse): IUserDataSuccess => ({
 	type: USER_DATA_SUCCESS,
 	payload: res,
 })
 
-const registerReq = (): IRegisterRequest => ({
+export const registerReq = (): IRegisterRequest => ({
 	type: REGISTER_REQUEST,
 })
 
-const registerFailed = (): IRegisterFailed => ({
+export const registerFailed = (): IRegisterFailed => ({
 	type: REGISTER_FAILED,
 })
 
-const registerSuccess = (res: TAuthResponse): IRegisterSuccess => ({
+export const registerSuccess = (res: TAuthResponse): IRegisterSuccess => ({
 	type: REGISTER_SUCCESS,
 	payload: res,
 })
 
-const forgotPasswordReq = (): IForgotPasswordRequest => ({
+export const forgotPasswordReq = (): IForgotPasswordRequest => ({
 	type: FORGOT_PASSWORD_REQUEST,
 })
 
-const forgotPasswordFailed = (): IForgotPasswordFailed => ({
+export const forgotPasswordFailed = (): IForgotPasswordFailed => ({
 	type: FORGOT_PASSWORD_FAILED,
 })
 
-const forgotPasswordSuccess = (): IForgotPasswordSuccess => ({
+export const forgotPasswordSuccess = (): IForgotPasswordSuccess => ({
 	type: FORGOT_PASSWORD_SUCCESS,
 })
 
-const resetPasswordReq = (): IResetPasswordRequest => ({
+export const resetPasswordReq = (): IResetPasswordRequest => ({
 	type: RESET_PASSWORD_REQUEST,
 })
 
-const resetPasswordFailed = (): IResetPasswordFailed => ({
+export const resetPasswordFailed = (): IResetPasswordFailed => ({
 	type: RESET_PASSWORD_FAILED,
 })
 
-const resetPasswordSuccess = (): IResetPasswordSuccess => ({
+export const resetPasswordSuccess = (): IResetPasswordSuccess => ({
 	type: RESET_PASSWORD_SUCCESS,
 })
 
-const updateUserReq = (): IUpdateUserRequest => ({
+export const updateUserReq = (): IUpdateUserRequest => ({
 	type: UPDATE_USER_REQUEST,
 })
 
-const updateUserFailed = (): IUpdateUserFailed => ({
+export const updateUserFailed = (): IUpdateUserFailed => ({
 	type: UPDATE_USER_FAILED,
 })
 
-const updateUserSuccess = (res: TUserResponse): IUpdateUserSuccess => ({
+export const updateUserSuccess = (res: TUserResponse): IUpdateUserSuccess => ({
 	type: UPDATE_USER_SUCCESS,
 	payload: res,
 })

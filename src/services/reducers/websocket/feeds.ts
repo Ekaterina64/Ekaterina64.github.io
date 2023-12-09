@@ -6,7 +6,7 @@ import {
 	wsError,
 	wsMessage,
 	wsOpen,
-} from '../actions/feedWs'
+} from '../../actions/feedWs'
 
 export type TFeedsState = Omit<IWsMessage, 'success'> & {
 	wsConnected: boolean
@@ -15,7 +15,7 @@ export type TFeedsState = Omit<IWsMessage, 'success'> & {
 	status: 'CONNECTING' | 'ONLINE' | 'OFFLINE'
 }
 
-const initialState: TFeedsState = {
+export const initialState: TFeedsState = {
 	wsConnected: false,
 	orders: [],
 	total: 0,

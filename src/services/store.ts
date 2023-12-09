@@ -1,4 +1,4 @@
-import { configureStore } from '@reduxjs/toolkit'
+import { AnyAction, ThunkAction, configureStore } from '@reduxjs/toolkit'
 import {
 	wsClose as FeedClose,
 	connect as FeedConnect,
@@ -47,3 +47,9 @@ export const store = configureStore({
 
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch
+export type ThunkActionType<ReturnType = void> = ThunkAction<
+	ReturnType,
+	RootState,
+	unknown,
+	AnyAction
+>

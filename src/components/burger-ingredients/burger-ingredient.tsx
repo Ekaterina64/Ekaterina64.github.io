@@ -40,7 +40,7 @@ const BurgerIngredient: FC<TBurgerIngredientProps> = ({ item }) => {
 				state={{ ingredientBackground: location }}
 				className={styles.link}
 			>
-				<div ref={ref} style={{ opacity }}>
+				<div ref={ref} style={{ opacity }} data-testid='burger_ingredient'>
 					{count > 0 && <Counter count={count} size='default' />}
 					<img className='ml-4 mr-4' src={item.image} alt='Ингредиент' />
 					<div className={`mt-2 mb-2 ${styles.price}`}>
@@ -51,6 +51,7 @@ const BurgerIngredient: FC<TBurgerIngredientProps> = ({ item }) => {
 						className={`
 							text text_type_main-default
 							${styles.ingredientName}`}
+						data-testid='burger_ingredient_name'
 					>
 						{item.name}
 					</p>

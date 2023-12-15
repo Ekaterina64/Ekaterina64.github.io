@@ -28,16 +28,21 @@ const Modal: FC<TModalProps> = props => {
 		<>
 			<div className={styles.modal}>
 				<ModalOverlay onClose={props.onClose} />
-				<div className={styles.content}>
+				<div className={styles.content} data-testid='modal'>
 					<p
 						className={`
 							text text_type_${props.titleSize} pt-3 pb-3
 							${styles.title}
 						`}
+						data-testid='modal_title'
 					>
 						{props.title}
 					</p>
-					<button className={styles.closeButton} onClick={props.onClose}>
+					<button
+						className={styles.closeButton}
+						onClick={props.onClose}
+						data-testid='close_button'
+					>
 						<CloseIcon type='primary' />
 					</button>
 					{props.children}

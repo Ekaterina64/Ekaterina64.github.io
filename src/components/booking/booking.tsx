@@ -13,6 +13,7 @@ const Booking: FC<TBookingProps> = ({ orderNumber }) => {
 						text text_type_digits-large mb-15
 						${styles.orderNumber}
 					`}
+					data-testid='order_number'
 				>
 					{orderNumber}
 				</h1>

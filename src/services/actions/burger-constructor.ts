@@ -143,7 +143,6 @@ export const moveFilling = (
 export function getOrder(ids: Array<string>) {
 	return function (dispatch: AppDispatch) {
 		dispatch(getOrderReq())
-		console.log('disp, next req')
 		getOrderRequest(ids)
 			.then(res => dispatch(getOrderSuccess(res)))
 			.catch(() => dispatch(getOrderFailed()))

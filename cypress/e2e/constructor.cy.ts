@@ -1,16 +1,21 @@
 const dataTestID = (id: string) => {
 	return `[data-testid=${id}]`
 }
+import { NORMA_API } from '../../src/utils/api'
 
 describe('Constructor', () => {
 	beforeEach(() => {
-		cy.visit('http://localhost:3000')
 		cy.setCookie('accessToken', 'test-accessToken')
 		cy.setCookie('refreshToken', 'test-refreshToken')
-		cy.intercept('GET', '/ingredients')
-		cy.intercept('POST', '/auth/login', { fixture: '../fixtures/login.json' })
-		cy.intercept('GET', '/auth/user', { fixture: '../fixtures/user.json' })
-		cy.intercept('POST', '/orders', { fixture: 'order.json' }).as('postOrder')
+
+		cy.intercept('GET', `${NORMA_API}/ingredients`)
+
+		cy.intercept('GET', `${NORMA_API}/auth/user`, {
+			fixture: 'user.json',
+		})
+		cy.intercept('POST', `${NORMA_API}/orders`, {
+			fixture: 'order.json',
+		}).as('postOrder')
 
 		cy.visit('http://localhost:3000')
 	})

@@ -273,7 +273,6 @@ export function logout() {
 export function getUserData() {
 	return function (dispatch: AppDispatch) {
 		dispatch(userDataReq())
-		console.log('get user')
 		getUserRequest()
 			.then(res => dispatch(userDataSuccess(res)))
 			.catch(() => dispatch(userDataFailed()))

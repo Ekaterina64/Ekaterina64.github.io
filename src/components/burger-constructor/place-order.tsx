@@ -7,10 +7,8 @@ import { memo, useCallback, useMemo } from 'react'
 import { useNavigate } from 'react-router'
 import { LOGIN } from '../../pages/index'
 import { closeInfo, getOrder } from '../../services/actions/burger-constructor'
-import { ACCESS_TOKEN } from '../../services/constants'
 import { getBurgerConstructor, getUser } from '../../services/selectors'
 import { useAppDispatch, useAppSelector } from '../../types/hooks'
-import { getCookie } from '../../utils/cookies'
 import Booking from '../booking/booking'
 import Modal from '../modal/modal'
 import styles from './burger-constructor.module.css'
@@ -21,7 +19,6 @@ const PlaceOrder = memo(() => {
 
 	const { order, orderRequest, burger } = useAppSelector(getBurgerConstructor)
 	const user = useAppSelector(getUser)
-	const token = getCookie(ACCESS_TOKEN)
 	const navigate = useNavigate()
 	const totalCost = useAppSelector(totalPriceSelector)
 
@@ -30,7 +27,7 @@ const PlaceOrder = memo(() => {
 		[burger]
 	)
 	const handleSubmit = () => {
-		if (token?.length === 0) {
+		if (!user) {
 			navigate(LOGIN)
 		} else {
 			dispatch(getOrder(ingredientsIds))

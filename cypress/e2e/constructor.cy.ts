@@ -2,6 +2,8 @@ const dataTestID = (id: string) => {
 	return `[data-testid=${id}]`
 }
 import { NORMA_API } from '../../src/utils/api'
+const testURL = 'http://localhost:3000'
+const testBurgerIngredient = dataTestID('burger_ingredient')
 
 describe('Constructor', () => {
 	beforeEach(() => {
@@ -17,11 +19,11 @@ describe('Constructor', () => {
 			fixture: 'order.json',
 		}).as('postOrder')
 
-		cy.visit('http://localhost:3000')
+		cy.visit(testURL)
 	})
 
 	it('should drag and drop a bun ingredient into constructor', () => {
-		cy.get(dataTestID('burger_ingredient')).first().trigger('dragstart')
+		cy.get(testBurgerIngredient).first().trigger('dragstart')
 		cy.get(dataTestID('constructor')).trigger('drop')
 
 		cy.get(dataTestID('constructor_bun'))
@@ -30,7 +32,7 @@ describe('Constructor', () => {
 	})
 
 	it('should open modal with ingredient details and close modal', () => {
-		cy.get(dataTestID('burger_ingredient')).first().click()
+		cy.get(testBurgerIngredient).first().click()
 		cy.get(dataTestID('modal')).as('modal')
 
 		cy.get('@modal')
@@ -65,7 +67,7 @@ describe('Constructor', () => {
 	})
 
 	it('should open modal with booking details and close modal', () => {
-		cy.get(dataTestID('burger_ingredient')).first().trigger('dragstart')
+		cy.get(testBurgerIngredient).first().trigger('dragstart')
 		cy.get(dataTestID('constructor')).trigger('drop')
 
 		cy.get(dataTestID('button_submit')).click()

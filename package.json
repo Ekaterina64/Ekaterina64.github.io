@@ -1,6 +1,7 @@
 {
 	"name": "react-burger",
 	"version": "0.1.0",
+	"homepage": "https://ekaterina64.github.io/react-burger",
 	"private": true,
 	"dependencies": {
 		"@reduxjs/toolkit": "^1.9.7",
@@ -35,7 +36,9 @@
 		"build": "react-scripts build",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject",
-		"cypress": "npx cypress open"
+		"cypress": "npx cypress open",
+		"predeploy": "npm run build",
+		"deploy": "gh-pages -d build"
 	},
 	"eslintConfig": {
 		"extends": [

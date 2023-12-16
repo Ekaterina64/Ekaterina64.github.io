@@ -38,7 +38,7 @@ const BurgerConstructor = () => {
 										 ${canDrop ? styles.drop : ''}
 										 mt-25 `
 	return (
-		<div className={`${className}`} ref={dropTarget}>
+		<div className={`${className}`} ref={dropTarget} data-testid='constructor'>
 			{burger.buns.length || burger.fillings.length ? (
 				<>
 					<Burger />

@@ -16,25 +16,39 @@ const EnergyValues: FC<Readonly<TEnergyValuesProps>> = props => {
 				<p className={`${energyTextStyle} mb-2 ${styles.energy}`}>
 					Калории, ккал
 				</p>
-				<p className={`${energyTextStyle} ${styles.energy}`}>
+				<p
+					className={`${energyTextStyle} ${styles.energy}`}
+					data-testid='ingredient_calories'
+				>
 					{props.calories}
 				</p>
 			</li>
 			<li className={styles.energyValue}>
 				<p className={`${energyTextStyle} mb-2 ${styles.energy}`}>Белки, г</p>
-				<p className={`${energyTextStyle} ${styles.energy}`}>
+				<p
+					className={`${energyTextStyle} ${styles.energy}`}
+					data-testid='ingredient_proteins'
+				>
 					{props.proteins}
 				</p>
 			</li>
 			<li className={styles.energyValue}>
 				<p className={`${energyTextStyle} mb-2 ${styles.energy}`}>Жиры, г</p>
-				<p className={`${energyTextStyle} ${styles.energy}`}>{props.fat}</p>
+				<p
+					className={`${energyTextStyle} ${styles.energy}`}
+					data-testid='ingredient_fat'
+				>
+					{props.fat}
+				</p>
 			</li>
 			<li className={styles.energyValue}>
 				<p className={`${energyTextStyle} mb-2 ${styles.energy}`}>
 					Углеводы, г
 				</p>
-				<p className={`${energyTextStyle} ${styles.energy}`}>
+				<p
+					className={`${energyTextStyle} ${styles.energy}`}
+					data-testid='ingredient_carbohydrates'
+				>
 					{props.carbohydrates}
 				</p>
 			</li>

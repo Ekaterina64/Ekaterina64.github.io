@@ -6,7 +6,7 @@ import {
 	wsError,
 	wsMessage,
 	wsOpen,
-} from '../actions/orderWs'
+} from '../../actions/orderWs'
 
 export type TOrdersState = Omit<IWsMessage, 'success'> & {
 	wsConnected: boolean
@@ -15,7 +15,7 @@ export type TOrdersState = Omit<IWsMessage, 'success'> & {
 	status: 'CONNECTING' | 'ONLINE' | 'OFFLINE'
 }
 
-const initialState: TOrdersState = {
+export const initialState: TOrdersState = {
 	wsConnected: false,
 	orders: [],
 	total: 0,

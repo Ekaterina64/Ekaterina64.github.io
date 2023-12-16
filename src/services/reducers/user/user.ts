@@ -20,10 +20,10 @@ import {
 	USER_LOGOUT_FAILED,
 	USER_LOGOUT_REQUEST,
 	USER_LOGOUT_SUCCESS,
-} from '../constants'
+} from '../../constants'
 
-import { TUser } from '../../types/data'
-import { TUserActions } from '../actions/user'
+import { TUser } from '../../../types/data'
+import { TUserActions } from '../../actions/user'
 
 type TUserState = {
 	loginRequest: boolean
@@ -59,7 +59,7 @@ type TUserState = {
 	refreshToken: string
 }
 
-const initialState: TUserState = {
+export const initialState: TUserState = {
 	loginRequest: false,
 	loginFailed: false,
 

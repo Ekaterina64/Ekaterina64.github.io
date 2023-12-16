@@ -12,13 +12,14 @@ const Bun: FC<Readonly<TBunProps>> = ({ type }) => {
 	return (
 		<>
 			{buns.length > 0 && (
-				<div className={styles.bun}>
+				<div className={styles.bun} data-testid='constructor_bun'>
 					<ConstructorElement
 						type={type}
 						isLocked={true}
 						text={`${buns[0].name} ${type === 'top' ? '(верх)' : '(низ)'}`}
 						price={buns[0].price}
 						thumbnail={buns[0].image}
+						data-testid='constructor_element'
 					/>
 				</div>
 			)}

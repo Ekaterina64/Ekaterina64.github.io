@@ -1,10 +1,10 @@
-import { TIngredient } from '../../types/data'
-import { TIngredientsActions } from '../actions/burger-ingredients'
+import { TIngredient } from '../../../types/data'
+import { TIngredientsActions } from '../../actions/burger-ingredients'
 import {
 	GET_INGREDIENTS_FAILED,
 	GET_INGREDIENTS_REQUEST,
 	GET_INGREDIENTS_SUCCESS,
-} from '../constants'
+} from '../../constants'
 
 export type TIngredientsState = {
 	ingredients: Array<TIngredient>
@@ -12,7 +12,7 @@ export type TIngredientsState = {
 	ingredientsFailed: boolean
 }
 
-const initialState: TIngredientsState = {
+export const initialState: TIngredientsState = {
 	ingredients: [],
 	ingredientsRequest: false,
 	ingredientsFailed: false,

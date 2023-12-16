@@ -25,15 +25,15 @@ export type TIngredientsActions =
 	| IGetIngredientsFailed
 	| IGetIngredientsSuccess
 
-const getIngredientsReq = (): IGetIngredientsRequest => ({
+export const getIngredientsReq = (): IGetIngredientsRequest => ({
 	type: GET_INGREDIENTS_REQUEST,
 })
 
-const getIngredientsFailed = (): IGetIngredientsFailed => ({
+export const getIngredientsFailed = (): IGetIngredientsFailed => ({
 	type: GET_INGREDIENTS_FAILED,
 })
 
-const getIngredientsSuccess = (
+export const getIngredientsSuccess = (
 	res: TIngredientResponse
 ): IGetIngredientsSuccess => ({
 	type: GET_INGREDIENTS_SUCCESS,

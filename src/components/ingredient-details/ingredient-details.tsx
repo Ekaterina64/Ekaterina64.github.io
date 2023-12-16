@@ -24,6 +24,7 @@ const IngredientDetails = () => {
 					text text_type_main-medium mt-4 mb-8
 					${styles.ingredient_name}
 				`}
+				data-testid='ingredient_name'
 			>
 				{ingredient.name}
 			</h2>

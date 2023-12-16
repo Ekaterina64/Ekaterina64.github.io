@@ -48,6 +48,7 @@ const PlaceOrder = memo(() => {
 				htmlType='submit'
 				type='primary'
 				size='large'
+				data-testid='button_submit'
 				onClick={handleSubmit}
 			>
 				{orderRequest ? 'Отправляем...' : 'Оформить заказ'}
